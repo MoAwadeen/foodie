@@ -25,4 +25,14 @@
         android:name="iti.project.foodie.ui.recipe.RecipeDetailFragment"
         android:label="fragment_recipe_detail"
         tools:layout="@layout/fragment_recipe_detail" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="iti.project.foodie.ui.recipe.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/creatorsFragment"
+        android:name="iti.project.foodie.ui.recipe.CreatorsFragment"
+        android:label="fragment_creators"
+        tools:layout="@layout/fragment_creators" />
 </navigation>

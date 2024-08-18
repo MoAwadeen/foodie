@@ -12,6 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import iti.project.foodie.R
 
 class RecipeActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -35,5 +36,30 @@ class RecipeActivity : AppCompatActivity() {
             }
         }
 
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.homeIcon -> {
+                    navController.navigate(R.id.homeFragment)
+                    true
+                }
+
+                R.id.searchIcon -> {
+                    navController.navigate(R.id.searchFragment)
+                    true
+                }
+
+                R.id.favouriteIcon -> {
+                    navController.navigate(R.id.favoriteFragment)
+                    true
+                }
+
+                R.id.profileIcon -> {
+                    navController.navigate(R.id.profileFragment)
+                    true
+                }
+
+                else -> false
+            }
+        }
     }
 }

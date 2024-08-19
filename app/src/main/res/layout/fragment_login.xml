@@ -60,7 +60,7 @@
         app:startIconCheckable="false"
         app:startIconDrawable="@drawable/message"
         tools:ignore="MissingConstraints">
-
+<!--trying to fix the edittext ui-->
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

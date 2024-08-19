@@ -5,11 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.button.MaterialButton
 import iti.project.foodie.R
 
-class LoginFragment : Fragment() {
+class IntroFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,20 +20,21 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
-
-
+        return inflater.inflate(R.layout.fragment_intro, container, false)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val signUp=view.findViewById<TextView>(R.id.signUpInLoginFragment)
-        signUp.setOnClickListener {
+        val loginButton=view.findViewById<MaterialButton>(R.id.loginButtonIntroFragment)
+        val signUpButton=view.findViewById<MaterialButton>(R.id.signUpButton)
+        loginButton.setOnClickListener {
+            findNavController().navigate(R.id.action_introFragment_to_loginFragment)
+        }
+        signUpButton.setOnClickListener {
             findNavController().navigate(R.id.action_introFragment_to_registerFragment)
+
         }
 
-
     }
-
-
 
 }

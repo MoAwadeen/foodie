@@ -10,8 +10,13 @@ import com.bumptech.glide.Glide
 import iti.project.foodie.R
 import iti.project.foodie.ui.recipe.HomeFragment
 
-class VerticalHomeAdapter(private val recipeList: List<HomeFragment.Recipe>) :
+class VerticalHomeAdapter(private var recipeList: List<HomeFragment.Recipe>,
+                          private val listener: OnItemClickListener) :
     RecyclerView.Adapter<VerticalHomeAdapter.RecipeViewHolder>() {
+
+    interface OnItemClickListener {
+        fun onItemClick(recipe : HomeFragment.Recipe)
+    }
 
     // Define a view holder for the recipe items
     class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -48,10 +53,17 @@ class VerticalHomeAdapter(private val recipeList: List<HomeFragment.Recipe>) :
         // Handle item click if needed
         holder.itemView.setOnClickListener {
             // Implement item click listener if needed
+            recipe.let { listener.onItemClick(it) }
         }
     }
 
     override fun getItemCount(): Int {
         return recipeList.size
     }
+
+    fun updateData(newRecipeList: List<HomeFragment.Recipe>) {
+        recipeList = newRecipeList
+        notifyDataSetChanged()
+    }
+
 }

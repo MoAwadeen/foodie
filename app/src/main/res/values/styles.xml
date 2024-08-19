@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BottomNavigationActiveIndicator">
+        <item name="android:color">@color/background</item>
+        <item name="android:shape">oval</item>
+    </style>
+</resources>

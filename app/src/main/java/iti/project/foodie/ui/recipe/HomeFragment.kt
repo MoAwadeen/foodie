@@ -3,14 +3,18 @@ package iti.project.foodie.ui.recipe
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import iti.project.foodie.R
@@ -18,7 +22,9 @@ import iti.project.foodie.ui.adapters.HorizontalHomeAdapter
 import iti.project.foodie.ui.adapters.VerticalHomeAdapter
 import iti.project.foodie.ui.auth.AuthActivity
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment() , VerticalHomeAdapter.OnItemClickListener{
+
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater : LayoutInflater ,
@@ -31,6 +37,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view : View , savedInstanceState : Bundle?) {
         super.onViewCreated(view , savedInstanceState)
+
+        navController = NavHostFragment.findNavController(this)
 
         val horizontalRecyclerView = view.findViewById<RecyclerView>(R.id.horizontalRecView)
         val arrayList = ArrayList<String>()
@@ -58,6 +66,14 @@ class HomeFragment : Fragment() {
         adapter.setOnItemClickListener(object : HorizontalHomeAdapter.OnItemClickListener {
             override fun onClick(imageView : ImageView? , path:  String?) {
                 // Handle item click here
+                val updatedRecipeList = listOf(
+                    Recipe(path ?: "", "Updated Title", "Updated Ingredients",
+                        "Updated Country", "Updated Category", true)
+                    // Add more updated recipes if necessary
+                )
+
+                // Update vertical RecyclerView
+                updateVerticalRecyclerView(updatedRecipeList)
             }
         })
 
@@ -106,7 +122,7 @@ class HomeFragment : Fragment() {
             )
 
         val verticalRecyclerView = view.findViewById<RecyclerView>(R.id.verticalRecView)
-        verticalRecyclerView.adapter = VerticalHomeAdapter(recipeList)
+        verticalRecyclerView.adapter = VerticalHomeAdapter(recipeList , this)
         verticalRecyclerView.layoutManager = LinearLayoutManager(context)
 
         // Handle the menu icon click
@@ -122,30 +138,31 @@ class HomeFragment : Fragment() {
         val popupMenu = PopupMenu(requireContext() , view)
         popupMenu.menuInflater.inflate(R.menu.home_menu, popupMenu.menu)
 
-        if (popupMenu.menu is MenuBuilder) {
-            val menuBuilder = popupMenu.menu as MenuBuilder
-            menuBuilder.setOptionalIconsVisible(false)
-        }
-
         for (i in 0 until popupMenu.menu.size()) {
             val menuItem = popupMenu.menu.getItem(i)
-            menuItem.icon?.apply {
-                // Set the icon to be displayed at the start
-                setBounds(0, 0, intrinsicWidth, intrinsicHeight)
-            }
-            menuItem.actionView?.apply {
-                // Adjust padding
-                setPadding(16, 0, 0, 0)
-            }
+            val spannableTitle = SpannableString(menuItem.title)
+            spannableTitle.setSpan(ForegroundColorSpan(ContextCompat.
+            getColor(requireContext(), R.color.purple)) , 0, spannableTitle.length, 0)
+            menuItem.title = spannableTitle
         }
+
+        // Change the background of the PopupMenu
+        val popup = PopupMenu::class.java.getDeclaredField("mPopup")
+        popup.isAccessible = true
+        val menuPopupHelper = popup.get(popupMenu)
+
+        menuPopupHelper.javaClass.getDeclaredMethod("setForceShowIcon", Boolean::class.java).
+        invoke(menuPopupHelper, true)
 
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.profile -> {
+                    navController.navigate(R.id.profileFragment)
                     Toast.makeText(requireContext() , item.title , Toast.LENGTH_LONG).show()
                     true
                 }
                 R.id.aboutCreator -> {
+                    navController.navigate(R.id.creatorsFragment)
                     Toast.makeText(requireContext() , item.title , Toast.LENGTH_LONG).show()
                     true
                 }
@@ -168,6 +185,17 @@ class HomeFragment : Fragment() {
         val category : String ,
         val isFavorite : Boolean
     )
+
+    private fun updateVerticalRecyclerView(newRecipeList: List<Recipe>) {
+        val verticalRecyclerView = view?.findViewById<RecyclerView>(R.id.verticalRecView)
+        val adapter = verticalRecyclerView?.adapter as? VerticalHomeAdapter
+        adapter?.updateData(newRecipeList)
+    }
+
+    override fun onItemClick(recipe : Recipe) {
+        navController.navigate(R.id.recipeDetailFragment)
+        Toast.makeText(requireContext() , "Recipe Detailed Fragment" , Toast.LENGTH_LONG).show()
+    }
 }
 
 

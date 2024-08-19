@@ -3,12 +3,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
     tools:context=".ui.recipe.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@color/background" >
+
+
+        <TextView
+            android:id="@+id/titleView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="@string/all_recipes"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/purple"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/horizontalRecView"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleView"
+            app:layout_constraintBottom_toTopOf="@id/verticalRecView"
+            android:layout_margin="15dp"
+            tools:listitem="@layout/horizontal_item_view"
+            app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/verticalRecView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="80dp"
+            app:layout_constraintTop_toBottomOf="@id/horizontalRecView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/vertical_item_view" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

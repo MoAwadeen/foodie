@@ -10,29 +10,35 @@
         android:name="iti.project.foodie.ui.recipe.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="iti.project.foodie.ui.recipe.FavoriteFragment"
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" />
+
     <fragment
         android:id="@+id/searchFragment"
         android:name="iti.project.foodie.ui.recipe.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
+
     <fragment
         android:id="@+id/recipeDetailFragment"
         android:name="iti.project.foodie.ui.recipe.RecipeDetailFragment"
         android:label="fragment_recipe_detail"
         tools:layout="@layout/fragment_recipe_detail" />
+
     <fragment
         android:id="@+id/profileFragment"
         android:name="iti.project.foodie.ui.recipe.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+
     <fragment
         android:id="@+id/creatorsFragment"
         android:name="iti.project.foodie.ui.recipe.CreatorsFragment"
         android:label="fragment_creators"
         tools:layout="@layout/fragment_creators" />
+
 </navigation>

@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -156,19 +157,47 @@ class HomeFragment : Fragment() , VerticalHomeAdapter.OnItemClickListener{
 
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
-                R.id.profile -> {
-                    navController.navigate(R.id.profileFragment)
-                    Toast.makeText(requireContext() , item.title , Toast.LENGTH_LONG).show()
-                    true
-                }
                 R.id.aboutCreator -> {
                     navController.navigate(R.id.creatorsFragment)
                     Toast.makeText(requireContext() , item.title , Toast.LENGTH_LONG).show()
                     true
                 }
                 R.id.signOut -> {
-                    val intent = Intent(requireContext() , AuthActivity::class.java)
-                    startActivity(intent)
+                    // Get the blur overlay view
+                    val blurOverlay = view.findViewById<View>(R.id.blurOverlay)
+                    // Show the blur overlay
+                    blurOverlay?.visibility = View.VISIBLE
+
+                    val builder = AlertDialog.Builder(requireContext())
+                    builder.setMessage("Are You Sure You Want To Sign Out ?")
+                        .setNegativeButton("Cancel") { dialog, _ ->
+                            // User clicked Cancel , dismiss the dialog
+                            dialog.dismiss()
+                        }
+                        .setPositiveButton("Sign Out") { _ , _ ->
+                            // User clicked Sign Out , navigate to AuthActivity
+                            val intent = Intent(requireContext(), AuthActivity::class.java)
+                            startActivity(intent)
+                            //requireActivity().finish()  // Optional: Finish the current activity
+                        }
+                    // Create and show the dialog
+                    val alertDialog = builder.create()
+                    alertDialog.show()
+                    // Customize the buttons
+                    val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                    val negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+
+                    // Set the color of the buttons' text
+                    positiveButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.light_orange))
+                    negativeButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.light_purple))
+
+                    // Optional: Set the background or other button styles if needed
+                    //positiveButton.setBackgroundResource(R.color.light_orange)
+                    //negativeButton.setBackgroundResource(R.color.light_purple)
+
+                    alertDialog.setOnDismissListener {
+                        blurOverlay?.visibility = View.GONE
+                    }
                     true
                 }
                 else -> false

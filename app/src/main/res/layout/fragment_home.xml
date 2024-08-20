@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         android:background="@color/background" >
 
-
         <TextView
             android:id="@+id/titleView"
             android:layout_width="wrap_content"
@@ -62,6 +61,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             tools:listitem="@layout/vertical_item_view" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+            android:id="@+id/blurOverlay"
+            layout="@layout/blur_overlay"
+            android:visibility="gone" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

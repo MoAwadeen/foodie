@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
 }
+
+
 android {
     namespace = "iti.project.foodie"
     compileSdk = 34
@@ -65,4 +67,6 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0-RC")
     implementation("androidx.core:core-splashscreen:1.0.0")
     implementation ("androidx.preference:preference:1.1.1")
+    implementation (libs.github.glide)
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.11.0")
 }

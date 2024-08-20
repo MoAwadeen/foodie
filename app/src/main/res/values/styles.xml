@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+
+    <style name="purple_Button" parent="Widget.Material3.Button.ElevatedButton">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:backgroundTint">@color/purple</item>
+    </style>
+    <style name="orange_Button" parent="Widget.Material3.Button.ElevatedButton">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:backgroundTint">@color/orange</item>
+
     <style name="BottomNavigationActiveIndicator">
         <item name="android:color">@color/background</item>
         <item name="android:shape">oval</item>

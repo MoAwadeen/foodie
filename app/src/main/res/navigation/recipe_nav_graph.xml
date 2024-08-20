@@ -9,7 +9,16 @@
         android:id="@+id/homeFragment"
         android:name="iti.project.foodie.ui.recipe.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_creatorsFragment"
+            app:destination="@id/creatorsFragment" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/favoriteFragment"

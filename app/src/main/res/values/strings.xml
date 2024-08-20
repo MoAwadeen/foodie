@@ -11,7 +11,7 @@
 
     <string name="password_hint">password</string>
     <string name="don_t_have_an_account">Don’t have an account?</string>
-    <string name="hello_blank_fragment">hello_blank_fragment</string>
+    <string name="blank_fragment">hello_blank_fragment</string>
     <string name="enter_your_info">Please enter your information here</string>
     <string name="birth_date">Birth Date</string>
     <string name="name">Name</string>
@@ -22,5 +22,10 @@
     <string name="search">Search</string>
     <string name="favourites">Favourites</string>
     <string name="profile">Profile</string>
+
+
+
+    <string name="sign_out">Sign Out</string>
+    <string name="about_the_creator">About The Creator</string>
 
 </resources>

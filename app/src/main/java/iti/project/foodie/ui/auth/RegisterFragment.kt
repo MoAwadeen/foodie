@@ -1,13 +1,29 @@
 package iti.project.foodie.ui.auth
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import iti.project.foodie.R
+import iti.project.foodie.data.repository.AuthRepository
+import iti.project.foodie.data.source.local.RoomDb
+import iti.project.foodie.data.source.local.User
+import iti.project.foodie.databinding.FragmentRegisterBinding
+import iti.project.foodie.ui.viewModel.AuthViewModel
 
 class RegisterFragment : Fragment() {
+
+    private var _binding: FragmentRegisterBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var userViewModel: AuthViewModel
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,8 +33,58 @@ class RegisterFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false)
+        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
+
+        sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+
+        val database = RoomDb.getDataBase(requireContext())
+        val userDao = database.UserDao()
+        val repository = AuthRepository(userDao)
+
+        userViewModel = AuthViewModel(repository)
+
+        return binding.root
     }
 
-}
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.signUpButton.setOnClickListener {
+            val name = binding.nameInputEditText.text.toString()
+            val birthDate = binding.dateInputEditText.text.toString()
+            val email = binding.emailInputEditText.text.toString()
+            val password = binding.passwordInputEditText.text.toString()
+
+            if (name.isEmpty() || birthDate.isEmpty() || email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(context, "Please fill out all fields", Toast.LENGTH_SHORT).show()
+            } else {
+                val user =
+                    User(name = name, birthDate = birthDate, email = email, password = password)
+                userViewModel.insertUser(user) {
+
+                    with(sharedPreferences.edit()) {
+                        putString("email", email)
+                        putString("name", name)
+                        apply()
+                    }
+
+                    Toast.makeText(context, "User registered successfully", Toast.LENGTH_SHORT)
+                        .show()
+                    findNavController().navigate(
+                        R.id.action_registerFragment_to_homeFragment2,
+                        null,
+                        navOptions {
+                            popUpTo(R.id.registerFragment) { inclusive = true }
+                        })
+                }
+            }
+        }
+    }
+
+
+        override fun onDestroyView() {
+            super.onDestroyView()
+            _binding = null
+        }
+    }
+

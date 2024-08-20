@@ -23,4 +23,9 @@
     <string name="favourites">Favourites</string>
     <string name="profile">Profile</string>
 
+
+
+    <string name="sign_out">Sign Out</string>
+    <string name="about_the_creator">About The Creator</string>
+
 </resources>

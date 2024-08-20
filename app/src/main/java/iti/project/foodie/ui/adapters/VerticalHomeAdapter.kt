@@ -8,14 +8,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import iti.project.foodie.R
+import iti.project.foodie.data.source.remote.model.Meal
 import iti.project.foodie.ui.recipe.HomeFragment
 
-class VerticalHomeAdapter(private var recipeList: List<HomeFragment.Recipe>,
+class VerticalHomeAdapter(private var recipeList: List<Meal>,
                           private val listener: OnItemClickListener) :
     RecyclerView.Adapter<VerticalHomeAdapter.RecipeViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClick(recipe : HomeFragment.Recipe)
+        fun onItemClick(recipe: Meal)
+        fun observeRandomMeal()
     }
 
     // Define a view holder for the recipe items
@@ -40,15 +42,15 @@ class VerticalHomeAdapter(private var recipeList: List<HomeFragment.Recipe>,
         val recipe = recipeList[position]
 
         // Load image using Glide
-        Glide.with(holder.itemView.context).load(recipe.imageUrl).into(holder.recipeImage)
+        Glide.with(holder.itemView.context).load(recipe.strMealThumb).into(holder.recipeImage)
 
-        holder.recipeTitle.text = recipe.title
-        holder.recipeIngredients.text = recipe.ingredients
-        holder.recipeCountry.text = recipe.country
-        holder.recipeCategory.text = recipe.category
+        holder.recipeTitle.text = recipe.strMeal
+        holder.recipeIngredients.text = ("${recipe.strIngredient1} , ${recipe.strIngredient2} , ...")
+        holder.recipeCountry.text = recipe.strArea
+        holder.recipeCategory.text = recipe.strCategory
 
         // Set favorite icon
-        holder.favIcon.setImageResource(if (recipe.isFavorite) R.drawable.ic_sec_fav else R.drawable.ic_sec_fav)
+        //holder.favIcon.setImageResource(if (Meal.isFavorite) R.drawable.ic_sec_fav else R.drawable.ic_sec_fav)
 
         // Handle item click if needed
         holder.itemView.setOnClickListener {
@@ -61,7 +63,7 @@ class VerticalHomeAdapter(private var recipeList: List<HomeFragment.Recipe>,
         return recipeList.size
     }
 
-    fun updateData(newRecipeList: List<HomeFragment.Recipe>) {
+    fun updateData(newRecipeList: List<Meal>) {
         recipeList = newRecipeList
         notifyDataSetChanged()
     }

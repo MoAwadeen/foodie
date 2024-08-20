@@ -14,22 +14,42 @@
         <action
             android:id="@+id/action_introFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_introFragment_to_homeFragment2"
+            app:destination="@id/homeFragment2" />
     </fragment>
 
     <fragment
         android:id="@+id/loginFragment"
         android:name="iti.project.foodie.ui.auth.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
-    <action
-        android:id="@+id/action_introFragment_to_registerFragment"
-        app:destination="@id/registerFragment" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment2"
+            app:destination="@id/homeFragment2" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+
+
+
 
     <fragment
         android:id="@+id/registerFragment"
         android:name="iti.project.foodie.ui.auth.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_homeFragment2"
+            app:destination="@id/homeFragment2" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment2"
+        android:name="iti.project.foodie.ui.recipe.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
 
 
 </navigation>

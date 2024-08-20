@@ -1,4 +1,32 @@
 package iti.project.foodie.ui.viewModel
 
-class AuthViewModel {
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import iti.project.foodie.data.repository.AuthRepository
+import iti.project.foodie.data.source.local.User
+import kotlinx.coroutines.launch
+
+class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
+
+    fun insertUser(user: User, oncomlete: () -> Unit) {
+        viewModelScope.launch {
+            authRepository.insertUser(user)
+            oncomlete()
+        }
+    }
+
+    fun login(email: String, password: String, onResult: (User?) -> Unit) {
+        viewModelScope.launch {
+            val user = authRepository.login(email, password)
+            onResult(user)
+        }
+    }
+
+
+    fun deleteUser(email: String) {
+        viewModelScope.launch {
+            authRepository.deleteUser(email)
+
+        }
+    }
 }

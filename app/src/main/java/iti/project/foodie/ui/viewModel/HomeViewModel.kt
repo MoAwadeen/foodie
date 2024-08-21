@@ -25,6 +25,7 @@ class HomeViewModel : ViewModel() {
     private val categoriesLiveData = MutableLiveData<List<Category>>()
     val retrofitService = RetrofitModule.api
 
+
     fun getCategories() {
         retrofitService.getCategories().enqueue(object : Callback<CategoriesList> {
             override fun onResponse(call: Call<CategoriesList>, response: Response<CategoriesList>) {

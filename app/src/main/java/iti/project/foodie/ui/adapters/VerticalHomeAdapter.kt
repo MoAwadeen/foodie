@@ -1,5 +1,6 @@
 package iti.project.foodie.ui.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,26 +9,24 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import iti.project.foodie.R
-import iti.project.foodie.ui.recipe.HomeFragment
+import iti.project.foodie.data.source.remote.model.Meal
 
-class VerticalHomeAdapter(private var recipeList: List<HomeFragment.Recipe>,
+class VerticalHomeAdapter(private var mealList: List<Meal> ,
                           private val listener: OnItemClickListener) :
     RecyclerView.Adapter<VerticalHomeAdapter.RecipeViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClick(recipe : HomeFragment.Recipe)
+        fun onItemClick(meal : Meal)
+        fun observeRandomMeal()
     }
 
     // Define a view holder for the recipe items
-    class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class RecipeViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val recipeImage: ImageView = itemView.findViewById(R.id.recipeImage)
         val recipeTitle: TextView = itemView.findViewById(R.id.recipeTitle)
-        val recipeIngredients: TextView = itemView.findViewById(R.id.recipeIngredients)
         val recipeCountry: TextView = itemView.findViewById(R.id.recipeCountry)
-        val countryIcon: ImageView = itemView.findViewById(R.id.countryIcon)
-        val favIcon: ImageView = itemView.findViewById(R.id.favIcon)
         val recipeCategory: TextView = itemView.findViewById(R.id.recipeCategory)
-        val categoryIcon: ImageView = itemView.findViewById(R.id.categoryIcon)
+        val recipeIngredient : TextView = itemView.findViewById(R.id.recipeIngredients)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
@@ -36,34 +35,30 @@ class VerticalHomeAdapter(private var recipeList: List<HomeFragment.Recipe>,
         return RecipeViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
-        val recipe = recipeList[position]
+        val meal = mealList[position]
 
         // Load image using Glide
-        Glide.with(holder.itemView.context).load(recipe.imageUrl).into(holder.recipeImage)
+        Glide.with(holder.itemView.context).load(meal.strMealThumb).into(holder.recipeImage)
 
-        holder.recipeTitle.text = recipe.title
-        holder.recipeIngredients.text = recipe.ingredients
-        holder.recipeCountry.text = recipe.country
-        holder.recipeCategory.text = recipe.category
+        holder.recipeTitle.text = meal.strMeal
+        holder.recipeCountry.text = meal.strArea
+        holder.recipeCategory.text = meal.strCategory
+        holder.recipeIngredient.text = ("${meal.strIngredient1} , ${meal.strIngredient2} , ....." )
 
-        // Set favorite icon
-        holder.favIcon.setImageResource(if (recipe.isFavorite) R.drawable.ic_sec_fav else R.drawable.ic_sec_fav)
-
-        // Handle item click if needed
+        // Handle item click
         holder.itemView.setOnClickListener {
-            // Implement item click listener if needed
-            recipe.let { listener.onItemClick(it) }
+            listener.onItemClick(meal)
         }
     }
 
     override fun getItemCount(): Int {
-        return recipeList.size
+        return mealList.size
     }
 
-    fun updateData(newRecipeList: List<HomeFragment.Recipe>) {
-        recipeList = newRecipeList
+    fun updateData(newMealList: List<Meal>) {
+        mealList = newMealList
         notifyDataSetChanged()
     }
-
 }

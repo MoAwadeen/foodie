@@ -1,6 +1,5 @@
 package iti.project.foodie.ui.recipe
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
@@ -14,136 +13,107 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import iti.project.foodie.R
+import iti.project.foodie.data.source.remote.model.Meal
+import iti.project.foodie.databinding.FragmentHomeBinding
 import iti.project.foodie.ui.adapters.HorizontalHomeAdapter
 import iti.project.foodie.ui.adapters.VerticalHomeAdapter
 import iti.project.foodie.ui.auth.AuthActivity
+import iti.project.foodie.ui.viewModel.HomeViewModel
 
-class HomeFragment : Fragment() , VerticalHomeAdapter.OnItemClickListener{
+class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener {
 
     private lateinit var navController: NavController
+    private lateinit var binding: FragmentHomeBinding
+    private lateinit var homeMvvm: HomeViewModel
+    private lateinit var verticalAdapter: VerticalHomeAdapter
+    private lateinit var horizontalAdapter: HorizontalHomeAdapter
+    private val verticalRecipeList = mutableListOf<Meal>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        homeMvvm = ViewModelProvider(this).get(HomeViewModel::class.java)
+    }
 
     override fun onCreateView(
-        inflater : LayoutInflater ,
-        container : ViewGroup? ,
-        savedInstanceState : Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-    override fun onViewCreated(view : View , savedInstanceState : Bundle?) {
-        super.onViewCreated(view , savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         navController = NavHostFragment.findNavController(this)
 
+        // Setup Horizontal RecyclerView
         val horizontalRecyclerView = view.findViewById<RecyclerView>(R.id.horizontalRecView)
-        val arrayList = ArrayList<String>()
+        horizontalAdapter = HorizontalHomeAdapter(requireContext(), mutableListOf())
+        horizontalRecyclerView.adapter = horizontalAdapter
+        horizontalRecyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        // Add multiple images to arrayList
-        arrayList.add("https://www.themealdb.com/images/category/beef.png")
-        arrayList.add("https://www.themealdb.com/images/category/chicken.png")
-        arrayList.add("https://www.themealdb.com/images/category/dessert.png")
-        arrayList.add("https://www.themealdb.com/images/category/lamb.png")
-        arrayList.add("https://www.themealdb.com/images/category/miscellaneous.png")
-        arrayList.add("https://www.themealdb.com/images/category/pasta.png")
-        arrayList.add("https://www.themealdb.com/images/category/pork.png")
-        arrayList.add("https://www.themealdb.com/images/category/seafood.png")
-        arrayList.add("https://www.themealdb.com/images/category/side.png")
-        arrayList.add("https://www.themealdb.com/images/category/starter.png")
-        arrayList.add("https://www.themealdb.com/images/category/vegan.png")
-        arrayList.add("https://www.themealdb.com/images/category/vegetarian.png")
-        arrayList.add("https://www.themealdb.com/images/category/breakfast.png")
-        arrayList.add("https://www.themealdb.com/images/category/goat.png")
-        arrayList.add("https://www.themealdb.com/images/media/meals/1548772327.jpg")
+        // Fetch and observe data for the horizontal RecyclerView
+        homeMvvm.getCategories() // Fetch categories data
+        observeCategories()
 
-        val adapter = HorizontalHomeAdapter(requireContext(), arrayList)
-        horizontalRecyclerView.adapter = adapter
-
-        adapter.setOnItemClickListener(object : HorizontalHomeAdapter.OnItemClickListener {
-            override fun onClick(imageView : ImageView? , path:  String?) {
-                // Handle item click here
-                val updatedRecipeList = listOf(
-                    Recipe(path ?: "", "Updated Title", "Updated Ingredients",
-                        "Updated Country", "Updated Category", true)
-                    // Add more updated recipes if necessary
-                )
-
-                // Update vertical RecyclerView
-                updateVerticalRecyclerView(updatedRecipeList)
-            }
-        })
-
-        val recipeList = listOf(
-            Recipe(
-                "https://www.themealdb.com/images/category/vegan.png" ,
-                "Recipe Title 1" ,
-                "Ingredients 1" ,
-                "Country 1" ,
-                "Category 1" ,
-                true
-            ),
-            Recipe(
-                "https://www.themealdb.com/images/category/pasta.png" ,
-                "Recipe Title 2" ,
-                "Ingredients 2" ,
-                "Country 2" ,
-                "Category 2" ,
-                false
-            ),
-            Recipe(
-                "https://www.themealdb.com/images/category/chicken.png" ,
-                "Recipe Title 3" ,
-                "Ingredients 3" ,
-                "Country 3" ,
-                "Category 3" ,
-                false
-            ),
-            Recipe(
-                "https://www.themealdb.com/images/category/breakfast.png" ,
-                "Recipe Title 4" ,
-                "Ingredients 4" ,
-                "Country 4" ,
-                "Category 4" ,
-                false
-            ),
-            Recipe(
-                "https://www.themealdb.com/images/category/dessert.png" ,
-                "Recipe Title 5" ,
-                "Ingredients 5" ,
-                "Country 5" ,
-                "Category 5" ,
-                false
-            ),
-
-            )
-
+        // Setup Vertical RecyclerView
         val verticalRecyclerView = view.findViewById<RecyclerView>(R.id.verticalRecView)
-        verticalRecyclerView.adapter = VerticalHomeAdapter(recipeList , this)
+        verticalAdapter = VerticalHomeAdapter(verticalRecipeList, this)
+        verticalRecyclerView.adapter = verticalAdapter
         verticalRecyclerView.layoutManager = LinearLayoutManager(context)
+
+        // Fetch and observe data for the vertical RecyclerView
+        repeat(5) {
+            homeMvvm.getRandomMeal()
+        }
+        observeRandomMeals()
 
         // Handle the menu icon click
         val menuIcon = view.findViewById<ImageView>(R.id.menuIcon)
         menuIcon.setOnClickListener {
             showPopupMenu(it)
         }
-
     }
 
-    @SuppressLint("RestrictedApi")
-    private fun showPopupMenu(view : View) {
-        val popupMenu = PopupMenu(requireContext() , view)
+    private fun observeCategories() {
+        homeMvvm.observeCategoriesLiveData().observe(viewLifecycleOwner) { categories ->
+            categories?.let {
+                horizontalAdapter.updateData(it)
+            }
+        }
+    }
+
+    private fun observeRandomMeals() {
+        homeMvvm.observeRandomMealLiveData().observe(viewLifecycleOwner) { meal ->
+            meal?.let {
+                verticalRecipeList.add(it)
+                verticalAdapter.notifyItemInserted(verticalRecipeList.size - 1)
+            }
+        }
+    }
+
+    private fun showPopupMenu(view: View) {
+        val popupMenu = PopupMenu(requireContext(), view)
         popupMenu.menuInflater.inflate(R.menu.home_menu, popupMenu.menu)
 
         for (i in 0 until popupMenu.menu.size()) {
             val menuItem = popupMenu.menu.getItem(i)
             val spannableTitle = SpannableString(menuItem.title)
-            spannableTitle.setSpan(ForegroundColorSpan(ContextCompat.
-            getColor(requireContext(), R.color.purple)) , 0, spannableTitle.length, 0)
+            spannableTitle.setSpan(
+                ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.purple)),
+                0,
+                spannableTitle.length,
+                0
+            )
             menuItem.title = spannableTitle
         }
 
@@ -152,79 +122,63 @@ class HomeFragment : Fragment() , VerticalHomeAdapter.OnItemClickListener{
         popup.isAccessible = true
         val menuPopupHelper = popup.get(popupMenu)
 
-        menuPopupHelper.javaClass.getDeclaredMethod("setForceShowIcon", Boolean::class.java).
-        invoke(menuPopupHelper, true)
+        menuPopupHelper.javaClass.getDeclaredMethod("setForceShowIcon", Boolean::class.java)
+            .invoke(menuPopupHelper, true)
 
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.aboutCreator -> {
                     navController.navigate(R.id.creatorsFragment)
-                    Toast.makeText(requireContext() , item.title , Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), item.title, Toast.LENGTH_LONG).show()
                     true
                 }
+
                 R.id.signOut -> {
-                    // Get the blur overlay view
-                    val blurOverlay = view.findViewById<View>(R.id.blurOverlay)
-                    // Show the blur overlay
-                    blurOverlay?.visibility = View.VISIBLE
-
-                    val builder = AlertDialog.Builder(requireContext())
-                    builder.setMessage("Are You Sure You Want To Sign Out ?")
-                        .setNegativeButton("Cancel") { dialog, _ ->
-                            // User clicked Cancel , dismiss the dialog
-                            dialog.dismiss()
-                        }
-                        .setPositiveButton("Sign Out") { _ , _ ->
-                            // User clicked Sign Out , navigate to AuthActivity
-                            val intent = Intent(requireContext(), AuthActivity::class.java)
-                            startActivity(intent)
-                            //requireActivity().finish()  // Optional: Finish the current activity
-                        }
-                    // Create and show the dialog
-                    val alertDialog = builder.create()
-                    alertDialog.show()
-                    // Customize the buttons
-                    val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                    val negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-
-                    // Set the color of the buttons' text
-                    positiveButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.light_orange))
-                    negativeButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.light_purple))
-
-                    // Optional: Set the background or other button styles if needed
-                    //positiveButton.setBackgroundResource(R.color.light_orange)
-                    //negativeButton.setBackgroundResource(R.color.light_purple)
-
-                    alertDialog.setOnDismissListener {
-                        blurOverlay?.visibility = View.GONE
-                    }
+                    showSignOutDialog(view)
                     true
                 }
+
                 else -> false
             }
         }
         popupMenu.show()
     }
 
-    data class Recipe(
-        val imageUrl : String ,
-        val title : String ,
-        val ingredients : String ,
-        val country : String ,
-        val category : String ,
-        val isFavorite : Boolean
-    )
+    private fun showSignOutDialog(view: View) {
+        // Get the blur overlay view
+        val blurOverlay = view.findViewById<View>(R.id.blurOverlay)
+        // Show the blur overlay
+        blurOverlay?.visibility = View.VISIBLE
 
-    private fun updateVerticalRecyclerView(newRecipeList: List<Recipe>) {
-        val verticalRecyclerView = view?.findViewById<RecyclerView>(R.id.verticalRecView)
-        val adapter = verticalRecyclerView?.adapter as? VerticalHomeAdapter
-        adapter?.updateData(newRecipeList)
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage("Are You Sure You Want To Sign Out?")
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setPositiveButton("Sign Out") { _, _ ->
+                val intent = Intent(requireContext(), AuthActivity::class.java)
+                startActivity(intent)
+            }
+        val alertDialog = builder.create()
+        alertDialog.show()
+
+        val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        val negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+
+        positiveButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.light_orange))
+        negativeButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.light_purple))
+
+        alertDialog.setOnDismissListener {
+            blurOverlay?.visibility = View.GONE
+        }
     }
 
-    override fun onItemClick(recipe : Recipe) {
+    override fun onItemClick(meal: Meal) {
         navController.navigate(R.id.recipeDetailFragment)
-        Toast.makeText(requireContext() , "Recipe Detailed Fragment" , Toast.LENGTH_LONG).show()
+        Toast.makeText(requireContext(), "Recipe Detailed Fragment", Toast.LENGTH_LONG).show()
+    }
+
+    override fun observeRandomMeal() {
+        TODO("Not yet implemented")
     }
 }
-
-

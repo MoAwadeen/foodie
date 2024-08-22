@@ -7,7 +7,6 @@
     android:background="@color/background"
     tools:context=".ui.recipe.ProfileFragment">
 
-
     <ImageView
         android:id="@+id/menuIcon"
         android:layout_width="wrap_content"
@@ -158,3 +157,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    <!--    trying to add app logo in the top of this screen -->
+    <!--    trying to add app logo in the top of this screen -->
+    <!--    trying to add app logo in the top of this screen -->
+    <!--    trying to add app logo in the top of this screen -->
+    <!--    trying to add app logo in the top of this screen -->
+

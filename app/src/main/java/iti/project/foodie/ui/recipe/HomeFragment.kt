@@ -1,5 +1,6 @@
 package iti.project.foodie.ui.recipe
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
@@ -20,13 +21,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import iti.project.foodie.R
 import iti.project.foodie.data.source.remote.model.Meal
+import iti.project.foodie.data.source.remote.model.Category
 import iti.project.foodie.databinding.FragmentHomeBinding
 import iti.project.foodie.ui.adapters.HorizontalHomeAdapter
 import iti.project.foodie.ui.adapters.VerticalHomeAdapter
 import iti.project.foodie.ui.auth.AuthActivity
 import iti.project.foodie.ui.viewModel.HomeViewModel
 
-class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener {
+class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener, HorizontalHomeAdapter.OnItemClickListener {
 
     private lateinit var navController: NavController
     private lateinit var binding: FragmentHomeBinding
@@ -45,7 +47,6 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -56,13 +57,13 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener {
 
         // Setup Horizontal RecyclerView
         val horizontalRecyclerView = view.findViewById<RecyclerView>(R.id.horizontalRecView)
-        horizontalAdapter = HorizontalHomeAdapter(requireContext(), mutableListOf())
+        horizontalAdapter = HorizontalHomeAdapter(requireContext(), mutableListOf(), this)
         horizontalRecyclerView.adapter = horizontalAdapter
         horizontalRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         // Fetch and observe data for the horizontal RecyclerView
-        homeMvvm.getCategories() // Fetch categories data
+        homeMvvm.getCategories()
         observeCategories()
 
         // Setup Vertical RecyclerView
@@ -71,10 +72,7 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener {
         verticalRecyclerView.adapter = verticalAdapter
         verticalRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        // Fetch and observe data for the vertical RecyclerView
-        repeat(5) {
-            homeMvvm.getRandomMeal()
-        }
+        // Observe random meals
         observeRandomMeals()
 
         // Handle the menu icon click
@@ -92,11 +90,29 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun observeRandomMeals() {
-        homeMvvm.observeRandomMealLiveData().observe(viewLifecycleOwner) { meal ->
-            meal?.let {
-                verticalRecipeList.add(it)
-                verticalAdapter.notifyItemInserted(verticalRecipeList.size - 1)
+        homeMvvm.observeRandomMealLiveData().observe(viewLifecycleOwner) { meals ->
+            verticalRecipeList.clear()
+            meals?.let {
+                verticalRecipeList.addAll(it)
+                verticalAdapter.notifyDataSetChanged()
+            }
+        }
+    }
+
+    override fun onItemClick(category: Category) {
+        homeMvvm.getMealsByCategory(category.strCategory ?: "")
+        observeMealsByCategory()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun observeMealsByCategory() {
+        homeMvvm.observeMealsByCategoryLiveData().observe(viewLifecycleOwner) { meals ->
+            verticalRecipeList.clear()
+            meals?.let {
+                verticalRecipeList.addAll(it)
+                verticalAdapter.notifyDataSetChanged()
             }
         }
     }
@@ -145,11 +161,6 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener {
     }
 
     private fun showSignOutDialog(view: View) {
-        // Get the blur overlay view
-        val blurOverlay = view.findViewById<View>(R.id.blurOverlay)
-        // Show the blur overlay
-        blurOverlay?.visibility = View.VISIBLE
-
         val builder = AlertDialog.Builder(requireContext())
         builder.setMessage("Are You Sure You Want To Sign Out?")
             .setNegativeButton("Cancel") { dialog, _ ->
@@ -167,18 +178,21 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener {
 
         positiveButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.light_orange))
         negativeButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.light_purple))
-
-        alertDialog.setOnDismissListener {
-            blurOverlay?.visibility = View.GONE
-        }
     }
 
-    override fun onItemClick(meal: Meal) {
+    override fun onItemClick(meal : Meal) {
+        val bundle = Bundle().apply {
+            putString("mealName", meal.strMeal)
+            putString("mealImage", meal.strMealThumb)
+            putString("mealCountry", meal.strArea)
+            putString("mealCategory", meal.strCategory)
+            putString("ingredient1", meal.strIngredient1)
+            putString("ingredient2", meal.strIngredient2)
+            // Add other ingredients as needed
+        }
         navController.navigate(R.id.recipeDetailFragment)
-        Toast.makeText(requireContext(), "Recipe Detailed Fragment", Toast.LENGTH_LONG).show()
     }
 
     override fun observeRandomMeal() {
-        TODO("Not yet implemented")
     }
 }

@@ -66,7 +66,8 @@
             android:inputType="textEmailAddress"
             android:paddingStart="40dp"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="RtlSymmetry"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -84,23 +85,24 @@
         app:boxCornerRadiusTopStart="18dp"
         app:boxStrokeColor="@color/orange"
         app:startIconDrawable="@drawable/calendar_24"
-    app:startIconCheckable="false"
-    app:hintEnabled="true"
-    app:hintTextColor="@color/purple"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintBottom_toTopOf="@id/emailInput"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/nameInput">
+        app:startIconCheckable="false"
+        app:hintEnabled="true"
+        app:hintTextColor="@color/purple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/emailInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nameInput">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/dateInputEditText"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:inputType="date"
-        android:paddingStart="40dp"
-        android:textSize="14sp"
-        android:textStyle="bold" />
-</com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dateInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:inputType="none"
+            android:paddingStart="40dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:ignore="RtlSymmetry"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailInput"
@@ -132,9 +134,10 @@
             android:layout_height="52dp"
 
             android:inputType="textEmailAddress"
-            android:paddingStart="48dp"
+            android:paddingStart="40dp"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="RtlSymmetry"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -168,7 +171,7 @@
             android:layout_height="52dp"
 
             android:inputType="textPassword"
-            android:paddingStart="48dp"
+            android:paddingStart="40dp"
             android:textSize="14sp"
             android:textStyle="bold"
             tools:ignore="RtlSymmetry" />

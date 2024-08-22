@@ -3,7 +3,6 @@ package iti.project.foodie.data.source.local
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Update
 
 @Dao
 interface UserDao {
@@ -18,4 +17,6 @@ interface UserDao {
 
     @Query("DELETE FROM users WHERE email = :email")
     suspend fun deleteUserByEmail(email: String)
+
+
 }

@@ -1,14 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search_fragment_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.recipe.SearchFragment">
+    android:background="@color/background"
+    android:elevation="10dp"
+    android:foregroundTint="@color/orange"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="32dp">
+
+        <!-- SearchView for searching meals -->
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view"
+            style="@style/RoundedSearchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/purple"
+            android:hint="@string/search_for_meals"
+            android:iconifiedByDefault="false"
+            android:textAppearance="@style/TextAppearance.Material3.SearchBar"
+            app:searchIcon="@drawable/ic_search" />
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- RecyclerView to display search results -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_results_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginBottom="60dp"
+        android:padding="16dp"
+        tools:listitem="@layout/item_search_result" />
 
-</FrameLayout>
+</LinearLayout>

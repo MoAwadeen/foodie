@@ -7,7 +7,7 @@
     android:background="@color/background"
     tools:context=".ui.recipe.ProfileFragment">
 
-    <!-- Menu Icon -->
+
     <ImageView
         android:id="@+id/menuIcon"
         android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="18dp"
         android:hint="@string/name"
         app:boxCornerRadiusBottomEnd="18dp"
@@ -70,8 +70,8 @@
             android:id="@+id/profileNameInputEditText"
             android:layout_width="match_parent"
             android:layout_height="52dp"
-            android:inputType="textEmailAddress"
             android:paddingStart="40dp"
+            android:enabled="false"
             android:textSize="14sp"
             android:textStyle="bold"
             tools:ignore="RtlSymmetry" />
@@ -83,7 +83,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="18dp"
         android:hint="@string/birth_date"
         app:boxCornerRadiusBottomEnd="18dp"
@@ -117,9 +117,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="18dp"
-        android:hint="@string/enter_your_email_hint"
+        android:hint="@string/email"
         app:boxCornerRadiusBottomEnd="18dp"
         app:boxCornerRadiusBottomStart="18dp"
         app:boxCornerRadiusTopEnd="18dp"
@@ -136,46 +136,14 @@
             android:id="@+id/profileEmailInputEditText"
             android:layout_width="match_parent"
             android:layout_height="52dp"
-            android:inputType="textEmailAddress"
-            android:paddingStart="40dp"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            tools:ignore="RtlSymmetry" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/profilePassword"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="18dp"
-        android:hint="@string/password_hint"
-        app:boxCornerRadiusBottomEnd="18dp"
-        app:boxCornerRadiusBottomStart="18dp"
-        app:boxCornerRadiusTopEnd="18dp"
-        app:boxCornerRadiusTopStart="18dp"
-        app:boxStrokeColor="@color/orange"
-        app:hintEnabled="true"
-        app:hintTextColor="@color/purple"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profileEmail"
-        app:passwordToggleEnabled="true"
-        app:startIconCheckable="false"
-        app:startIconDrawable="@drawable/lock">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/profilePasswordInputEditText"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
             android:enabled="false"
             android:paddingStart="40dp"
             android:textSize="14sp"
             android:textStyle="bold"
             tools:ignore="RtlSymmetry" />
     </com.google.android.material.textfield.TextInputLayout>
+
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"

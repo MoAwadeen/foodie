@@ -1,6 +1,7 @@
 package iti.project.foodie.ui.recipe
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import iti.project.foodie.R
@@ -160,6 +162,19 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener, Horizo
         popupMenu.show()
     }
 
+    private fun signOutUser() {
+        val sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        with(sharedPreferences.edit()) {
+            putBoolean("isLoggedIn", false)
+            apply()
+        }
+
+        // Navigate back to the login screen
+        findNavController().navigate(R.id.loginFragment)
+
+        Toast.makeText(requireContext(), "Signed out successfully", Toast.LENGTH_SHORT).show()
+    }
+
     private fun showSignOutDialog(view: View) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setMessage("Are You Sure You Want To Sign Out?")
@@ -167,8 +182,7 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener, Horizo
                 dialog.dismiss()
             }
             .setPositiveButton("Sign Out") { _, _ ->
-                val intent = Intent(requireContext(), AuthActivity::class.java)
-                startActivity(intent)
+                signOutUser()
             }
         val alertDialog = builder.create()
         alertDialog.show()

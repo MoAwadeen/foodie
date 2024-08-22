@@ -20,17 +20,23 @@ class IntroFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentIntroBinding.inflate(inflater, container, false)
         return binding.root
+
     }
     override fun onStart() {
         super.onStart()
         val sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", android.content.Context.MODE_PRIVATE)
-        if (sharedPreferences.getString("email", null) != null){
-            findNavController().navigate(R.id.action_introFragment_to_homeFragment2)
-            }
+        val email = sharedPreferences.getString("email", null)
+        val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+
+        if (!email.isNullOrEmpty() && isLoggedIn) {
+            findNavController().navigate(R.id.action_introFragment_to_recipeActivity)
+        }
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         binding.loginButtonIntroFragment.setOnClickListener {
             findNavController().navigate(R.id.action_introFragment_to_loginFragment)

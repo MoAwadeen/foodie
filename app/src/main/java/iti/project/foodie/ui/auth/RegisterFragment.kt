@@ -94,17 +94,16 @@ class RegisterFragment : Fragment() {
 
                 val user = User(name = name, birthDate = birthDate, email = email, password = password)
                 userViewModel.insertUser(user) {
-
                     with(sharedPreferences.edit()) {
                         putString("email", email)
-                        putString("name", name)
+                        putBoolean("isLoggedIn", true)
                         apply()
                     }
 
 
                     Toast.makeText(context, "User registered successfully", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(
-                        R.id.action_registerFragment_to_homeFragment2,
+                        R.id.action_registerFragment_to_recipeActivity,
                         null,
                         navOptions {
                             popUpTo(R.id.registerFragment) { inclusive = true }

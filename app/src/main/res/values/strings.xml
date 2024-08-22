@@ -27,5 +27,7 @@
 
     <string name="sign_out">Sign Out</string>
     <string name="about_the_creator">About The Creator</string>
+    <string name="your_profile">Your Profile</string>
+    <string name="your_personal_information">Your Personal Information</string>
 
 </resources>

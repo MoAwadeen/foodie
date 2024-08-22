@@ -2,6 +2,7 @@ package iti.project.foodie.data.repository
 
 import iti.project.foodie.data.source.local.User
 import iti.project.foodie.data.source.local.UserDao
+import java.util.Date
 
 class AuthRepository(private val userDao: UserDao) {
     suspend fun insertUser(user: User) {
@@ -16,6 +17,10 @@ class AuthRepository(private val userDao: UserDao) {
     suspend fun deleteUser(email: String) {
         userDao.deleteUserByEmail(email)
     }
+
+
+
+
 
 
 }

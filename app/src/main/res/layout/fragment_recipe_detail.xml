@@ -1,14 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.recipe.RecipeDetailFragment">
+    android:background="@color/background"
+    android:id="@+id/main"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent" >
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/recipeImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/breakfast"
+            tools:ignore="ContentDescription"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/recipeTitle" />
+
+        <ImageView
+            android:id="@+id/exitBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription,MissingConstraints"
+            android:src="@drawable/ic_exit"
+            android:layout_margin="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/favouriteBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription,MissingConstraints"
+            android:src="@drawable/ic_third_favourite"
+            android:layout_margin="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Recipe Title -->
+        <TextView
+            android:id="@+id/recipeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Spaghetti Bolognese"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/orange"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recipeImage"
+            app:layout_constraintBottom_toTopOf="@id/recipeDescription" />
+
+        <!-- Recipe Description -->
+        <TextView
+            android:id="@+id/recipeDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Put the onion and oil in a large pan and fry over a fairly high heat for 3-4 mins. Add the garlic and mince and fry until they both brown. Add the mushrooms and herbs, and More..."
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recipeDescription"
+            app:layout_constraintBottom_toTopOf="@id/ingredientsTitle"
+            android:textColor="@color/purple" />
+
+        <!-- Ingredients Section -->
+        <TextView
+            android:id="@+id/ingredientsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Ingredients"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recipeDescription"
+            app:layout_constraintBottom_toTopOf="@id/ingredientsList"
+            android:textColor="@color/orange" />
+
+        <TextView
+            android:id="@+id/ingredientsList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="onions, olive oil, garlic, lean minced beef, mushrooms, dried oregano, tomatoes, hot beef stock, tomato pure, worcestershire sauce, spaghetti, parmesan"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ingredientsList"
+            app:layout_constraintBottom_toTopOf="@id/categoryIcon"
+            android:textColor="@color/purple" />
+
+        <ImageView
+            android:id="@+id/categoryIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_sec_category"
+            android:layout_margin="5dp"
+            tools:ignore="ContentDescription"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/categoryText"
+            app:layout_constraintTop_toBottomOf="@id/ingredientsList"/>
+
+        <TextView
+            android:id="@+id/categoryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pasta , Meat"
+            android:textSize="18sp"
+            android:textColor="@color/orange"
+            android:layout_margin="5dp"
+            android:layout_marginStart="6dp"
+            android:drawablePadding="8dp"
+            android:paddingEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@id/ingredientsList"
+            app:layout_constraintStart_toEndOf="@id/categoryIcon"
+            app:layout_constraintEnd_toStartOf="@id/countryIcon" />
+
+
+        <ImageView
+            android:id="@+id/countryIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_world"
+            tools:ignore="ContentDescription"
+            android:layout_margin="5dp"
+            app:layout_constraintTop_toBottomOf="@id/ingredientsList"
+            app:layout_constraintStart_toEndOf="@id/categoryText"
+            app:layout_constraintEnd_toStartOf="@id/countryText"/>
+
+        <TextView
+            android:id="@+id/countryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Italian"
+            android:textSize="18sp"
+            android:textColor="@color/orange"
+            android:drawablePadding="8dp"
+            android:paddingEnd="16dp"
+            tools:ignore="RtlSymmetry"
+            android:layout_margin="5dp"
+            app:layout_constraintTop_toBottomOf="@id/ingredientsList"
+            app:layout_constraintStart_toEndOf="@id/countryIcon"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/videoTitle"
+            android:layout_width="201dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Watch The Full Recipe Here"
+            android:textColor="@color/purple"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/recipeVideo"
+            app:layout_constraintTop_toBottomOf="@id/categoryIcon"/>
+
+        <WebView
+            android:id="@+id/recipeVideo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/videoTitle"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

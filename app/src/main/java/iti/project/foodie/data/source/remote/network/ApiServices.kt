@@ -4,6 +4,7 @@ import iti.project.foodie.data.source.remote.model.CategoriesList
 import iti.project.foodie.data.source.remote.model.MealList
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 public interface ApiServices {
     @GET("random.php")
@@ -11,4 +12,7 @@ public interface ApiServices {
 
     @GET("categories.php")
     fun getCategories() : Call<CategoriesList>
+
+    @GET("filter.php") // Replace with your actual endpoint
+    fun getMealsByCategory(@Query("c") category: String): Call<MealList>
 }

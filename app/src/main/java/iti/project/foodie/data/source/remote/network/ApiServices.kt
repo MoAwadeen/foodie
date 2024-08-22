@@ -15,4 +15,7 @@ public interface ApiServices {
 
     @GET("filter.php") // Replace with your actual endpoint
     fun getMealsByCategory(@Query("c") category: String): Call<MealList>
+
+    @GET("search.php") // Replace with your actual endpoint
+    fun getMealByName(@Query("s") name: String): Call<MealList>
 }

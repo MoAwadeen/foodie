@@ -46,7 +46,6 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-
     fun getCategories() {
         retrofitService.getCategories().enqueue(object : Callback<CategoriesList> {
             override fun onResponse(call: Call<CategoriesList>, response: Response<CategoriesList>) {
@@ -56,7 +55,6 @@ class HomeViewModel : ViewModel() {
                     }
                 }
             }
-
 
             override fun onFailure(call: Call<CategoriesList>, t: Throwable) {
                 Log.d("HomeViewModel", "Error fetching categories: ${t.message}")
@@ -68,9 +66,9 @@ class HomeViewModel : ViewModel() {
         return categoriesLiveData
     }
 
-    fun getMealsByCategory(category : String) {
+    fun getMealsByCategory(category: String) {
         retrofitService.getMealsByCategory(category).enqueue(object : Callback<MealList> {
-            override fun onResponse(call: Call<MealList> , response: Response<MealList>) {
+            override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
                 if (response.isSuccessful) {
                     response.body()?.meals?.let {
                         mealsByCategoryLiveData.value = it

@@ -40,7 +40,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/horizontalRecView"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:layout_marginStart="12dp"
             android:backgroundTint="#02000000"
             app:layout_constraintBottom_toTopOf="@id/verticalRecView"

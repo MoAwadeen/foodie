@@ -51,11 +51,12 @@ class HomeViewModel : ViewModel() {
         retrofitService.getCategories().enqueue(object : Callback<CategoriesList> {
             override fun onResponse(call: Call<CategoriesList>, response: Response<CategoriesList>) {
                 if (response.isSuccessful) {
-                    response.body()?.categories?.let {
-                        categoriesLiveData.value = it
+                    response.body()?.let {
+                        categoriesLiveData.postValue(it.categories)
                     }
                 }
             }
+
 
             override fun onFailure(call: Call<CategoriesList>, t: Throwable) {
                 Log.d("HomeViewModel", "Error fetching categories: ${t.message}")

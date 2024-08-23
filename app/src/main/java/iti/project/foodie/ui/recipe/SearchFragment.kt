@@ -18,12 +18,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import androidx.appcompat.widget.SearchView
-
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 class SearchFragment : Fragment() {
 
     private lateinit var searchAdapter: SearchAdapter
     private lateinit var searchResultsRecyclerView: RecyclerView
     private lateinit var searchView: SearchView
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,17 +36,19 @@ class SearchFragment : Fragment() {
         searchView = view.findViewById(R.id.search_view)
         searchResultsRecyclerView = view.findViewById(R.id.search_results_recycler_view)
         searchResultsRecyclerView.layoutManager = LinearLayoutManager(context)
-        searchAdapter = SearchAdapter()
+
+        searchAdapter = SearchAdapter { meal ->
+            onItemClick(meal)
+        }
+
         searchResultsRecyclerView.adapter = searchAdapter
 
-        // Add DividerItemDecoration
         val dividerItemDecoration = DividerItemDecoration(
             searchResultsRecyclerView.context,
             (searchResultsRecyclerView.layoutManager as LinearLayoutManager).orientation
         )
         searchResultsRecyclerView.addItemDecoration(dividerItemDecoration)
 
-        // Handle Search Query Submission
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
@@ -54,12 +58,16 @@ class SearchFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                // Optional: Implement live search here if needed
                 return false
             }
         })
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = NavHostFragment.findNavController(this)
     }
 
     private fun fetchMealsByName(query: String) {
@@ -81,5 +89,12 @@ class SearchFragment : Fragment() {
                 Log.e("SearchFragment", "API call failed", t)
             }
         })
+    }
+
+    private fun onItemClick(meal: Meal) {
+        val bundle = Bundle().apply {
+            putString("mealId", meal.idMeal)
+        }
+        navController.navigate(R.id.recipeDetailFragment, bundle)
     }
 }

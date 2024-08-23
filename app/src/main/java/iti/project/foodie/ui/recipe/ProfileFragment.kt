@@ -115,10 +115,17 @@ class ProfileFragment : Fragment() {
         builder.setMessage("Are You Sure You Want To Sign Out?")
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()
+                blurOverlay?.visibility = View.GONE // Hide the blur overlay when canceled
             }
             .setPositiveButton("Sign Out") { _, _ ->
+                // Clear SharedPreferences and navigate to AuthActivity
+                sharedPreferences.edit().clear().apply()
+
                 val intent = Intent(requireContext(), AuthActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK // Clear activity stack
                 startActivity(intent)
+
+                Toast.makeText(requireContext(), "Signed out successfully", Toast.LENGTH_SHORT).show()
             }
         val alertDialog = builder.create()
         alertDialog.show()
@@ -133,6 +140,7 @@ class ProfileFragment : Fragment() {
             blurOverlay?.visibility = View.GONE
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

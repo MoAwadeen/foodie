@@ -11,20 +11,23 @@ import iti.project.foodie.data.source.remote.model.Meal
 import android.widget.TextView
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-
-class SearchAdapter : ListAdapter<Meal, SearchAdapter.SearchViewHolder>(SearchDiffCallback()) {
+class SearchAdapter(private val onItemClickListener: (Meal) -> Unit) :
+    ListAdapter<Meal, SearchAdapter.SearchViewHolder>(SearchDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_search_result, parent, false)
-        return SearchViewHolder(view)
+        return SearchViewHolder(view, onItemClickListener)
     }
 
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    class SearchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class SearchViewHolder(
+        itemView: View,
+        private val onItemClickListener: (Meal) -> Unit
+    ) : RecyclerView.ViewHolder(itemView) {
         private val mealName: TextView = itemView.findViewById(R.id.meal_name)
         private val mealImage: ImageView = itemView.findViewById(R.id.meal_image)
         private val mealCategory: TextView = itemView.findViewById(R.id.category_name)
@@ -39,6 +42,11 @@ class SearchAdapter : ListAdapter<Meal, SearchAdapter.SearchViewHolder>(SearchDi
                 .placeholder(R.drawable.placeholder) // Optional placeholder
                 .error(R.drawable.placeholder) // Optional error image
                 .into(mealImage)
+
+            // Set the click listener
+            itemView.setOnClickListener {
+                onItemClickListener(meal)
+            }
         }
     }
 

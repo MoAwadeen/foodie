@@ -54,8 +54,9 @@ class HorizontalHomeAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(newCategories: List<Category>) {
-        categoryList.clear()
+        (categoryList as MutableList).clear()
         categoryList.addAll(newCategories)
         notifyDataSetChanged()
     }
+
 }

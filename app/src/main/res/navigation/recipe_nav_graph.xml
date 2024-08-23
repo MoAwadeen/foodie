@@ -18,6 +18,8 @@
             android:id="@+id/action_homeFragment_to_creatorsFragment"
             app:destination="@id/creatorsFragment" />
 
+
+
     </fragment>
 
     <fragment

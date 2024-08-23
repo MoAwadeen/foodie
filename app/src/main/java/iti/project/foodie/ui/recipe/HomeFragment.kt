@@ -2,6 +2,7 @@ package iti.project.foodie.ui.recipe
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -26,6 +27,7 @@ import iti.project.foodie.data.source.remote.model.Meal
 import iti.project.foodie.databinding.FragmentHomeBinding
 import iti.project.foodie.ui.adapters.HorizontalHomeAdapter
 import iti.project.foodie.ui.adapters.VerticalHomeAdapter
+import iti.project.foodie.ui.auth.AuthActivity
 import iti.project.foodie.ui.viewModel.HomeViewModel
 
 class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener, HorizontalHomeAdapter.OnItemClickListener {
@@ -159,7 +161,6 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener, Horizo
         }
         popupMenu.show()
     }
-
     private fun signOutUser() {
         val sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         with(sharedPreferences.edit()) {
@@ -167,11 +168,17 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener, Horizo
             apply()
         }
 
-        // Navigate back to the login screen
-        findNavController().navigate(R.id.loginFragment)
+        // Start the IntroActivity and clear the stack
+        val intent = Intent(requireContext(), AuthActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        startActivity(intent)
 
         Toast.makeText(requireContext(), "Signed out successfully", Toast.LENGTH_SHORT).show()
     }
+
+
+
 
     private fun showSignOutDialog(view: View) {
         val builder = AlertDialog.Builder(requireContext())

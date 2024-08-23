@@ -2,7 +2,6 @@ package iti.project.foodie.ui.recipe
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -22,12 +21,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import iti.project.foodie.R
-import iti.project.foodie.data.source.remote.model.Meal
 import iti.project.foodie.data.source.remote.model.Category
+import iti.project.foodie.data.source.remote.model.Meal
 import iti.project.foodie.databinding.FragmentHomeBinding
 import iti.project.foodie.ui.adapters.HorizontalHomeAdapter
 import iti.project.foodie.ui.adapters.VerticalHomeAdapter
-import iti.project.foodie.ui.auth.AuthActivity
 import iti.project.foodie.ui.viewModel.HomeViewModel
 
 class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener, HorizontalHomeAdapter.OnItemClickListener {
@@ -41,7 +39,7 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener, Horizo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        homeMvvm = ViewModelProvider(this).get(HomeViewModel::class.java)
+        homeMvvm = ViewModelProvider(this)[HomeViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -194,17 +192,11 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener, Horizo
         negativeButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.light_purple))
     }
 
-    override fun onItemClick(meal : Meal) {
+    override fun onItemClick(meal: Meal) {
         val bundle = Bundle().apply {
-            putString("mealName", meal.strMeal)
-            putString("mealImage", meal.strMealThumb)
-            putString("mealCountry", meal.strArea)
-            putString("mealCategory", meal.strCategory)
-            putString("ingredient1", meal.strIngredient1)
-            putString("ingredient2", meal.strIngredient2)
-            // Add other ingredients as needed
+            putString("mealId", meal.idMeal) // Pass the meal ID here
         }
-        navController.navigate(R.id.recipeDetailFragment)
+        navController.navigate(R.id.recipeDetailFragment, bundle) // Pass the bundle when navigating
     }
 
     override fun observeRandomMeal() {

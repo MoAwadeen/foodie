@@ -27,5 +27,9 @@
 
     <string name="sign_out">Sign Out</string>
     <string name="about_the_creator">About The Creator</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="watch_the_full_recipe_here">Watch The Full Recipe Here</string>
+    <string name="measures">Measures</string>
+    <string name="instructions">Instructions</string>
 
 </resources>

@@ -147,7 +147,6 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener, Horizo
             when (item.itemId) {
                 R.id.aboutCreator -> {
                     navController.navigate(R.id.creatorsFragment)
-                    Toast.makeText(requireContext(), item.title, Toast.LENGTH_LONG).show()
                     true
                 }
 

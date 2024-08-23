@@ -43,7 +43,8 @@ class VerticalHomeAdapter(private var mealList: List<Meal> ,
         Glide.with(holder.itemView.context).load(meal.strMealThumb).into(holder.recipeImage)
 
         holder.recipeTitle.text = meal.strMeal
-        holder.recipeCountry.text = meal.strArea
+        meal.strArea?.let {holder.recipeCountry.text = it}
+        holder.recipeCountry.text = meal.strArea?:""
         holder.recipeCategory.text = meal.strCategory
         holder.recipeIngredient.text = ("${meal.strIngredient1} , ${meal.strIngredient2} , ....." )
 

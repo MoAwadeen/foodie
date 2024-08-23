@@ -18,4 +18,7 @@ public interface ApiServices {
 
     @GET("search.php") // Replace with your actual endpoint
     fun getMealByName(@Query("s") name: String): Call<MealList>
+
+    @GET("lookup.php")
+    fun getMealDetails(@Query("i") mealId: String): Call<MealList>
 }

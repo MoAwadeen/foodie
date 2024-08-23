@@ -33,5 +33,9 @@
     <string name="searchbar_hint">search here</string>
     <string name="meal_image" />
     <string name="search_for_meals">Search for meals</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="watch_the_full_recipe_here">Watch The Full Recipe Here</string>
+    <string name="measures">Measures</string>
+    <string name="instructions">Instructions</string>
 
 </resources>

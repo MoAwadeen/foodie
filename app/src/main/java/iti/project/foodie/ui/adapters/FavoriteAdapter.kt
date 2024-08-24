@@ -9,24 +9,23 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import iti.project.foodie.R
-import iti.project.foodie.data.source.remote.model.Meal
+import iti.project.foodie.data.source.local.Recipe
 
-class VerticalHomeAdapter(private var mealList: List<Meal> ,
-                          private val listener: OnItemClickListener) :
-    RecyclerView.Adapter<VerticalHomeAdapter.RecipeViewHolder>() {
+class FavoriteAdapter(
+    private var recipeList: List<Recipe>,
+    private val listener: OnItemClickListener
+) : RecyclerView.Adapter<FavoriteAdapter.RecipeViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClick(meal : Meal)
-        fun observeRandomMeal()
+        fun onItemClick(meal: Recipe)
     }
 
-    // Define a view holder for the recipe items
-    class RecipeViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+    class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val recipeImage: ImageView = itemView.findViewById(R.id.recipeImage)
         val recipeTitle: TextView = itemView.findViewById(R.id.recipeTitle)
         val recipeCountry: TextView = itemView.findViewById(R.id.recipeCountry)
         val recipeCategory: TextView = itemView.findViewById(R.id.recipeCategory)
-        val recipeIngredient : TextView = itemView.findViewById(R.id.recipeIngredients)
+        val recipeIngredient: TextView = itemView.findViewById(R.id.recipeIngredients)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
@@ -37,31 +36,27 @@ class VerticalHomeAdapter(private var mealList: List<Meal> ,
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
-        val meal = mealList[position]
+        val recipe = recipeList[position]
 
-        // Load image using Glide
-        Glide.with(holder.itemView.context).load(meal.strMealThumb).into(holder.recipeImage)
+        Glide.with(holder.itemView.context).load(recipe.strMealThumb).into(holder.recipeImage)
 
-        holder.recipeTitle.text = meal.strMeal
-        //meal.strArea?.let {holder.recipeCountry.text = it}
-        holder.recipeCountry.text = meal.strArea?:""
-        holder.recipeCategory.text = meal.strCategory
-        holder.recipeIngredient.text = ("${meal.strIngredient1} , ${meal.strIngredient2} , ....." )
+        holder.recipeTitle.text = recipe.strMeal
+        holder.recipeCountry.text = recipe.strArea ?: ""
+        holder.recipeCategory.text = recipe.strCategory
+        holder.recipeIngredient.text = "${recipe.strIngredient1}, ${recipe.strIngredient2}, ..."
 
-        // Handle item click
         holder.itemView.setOnClickListener {
-            listener.onItemClick(meal)
+            listener.onItemClick(recipe)
         }
     }
 
     override fun getItemCount(): Int {
-        return mealList.size
+        return recipeList.size
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(newMealList: List<Meal>) {
-        mealList = newMealList
+    fun updateData(newRecipeList: List<Recipe>) {
+        recipeList = newRecipeList
         notifyDataSetChanged()
     }
-
 }

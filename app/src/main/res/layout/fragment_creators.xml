@@ -12,15 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-        <ImageView
-            android:id="@+id/menuIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_menu"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/food_icon"
@@ -225,15 +216,4 @@
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
-
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bottom_nav_background"
-        app:itemActiveIndicatorStyle="@style/BottomNavigationActiveIndicator"
-        app:itemIconTint="@color/bottom_nav_item_color"
-        app:itemTextColor="@color/bottom_nav_item_color"
-        app:menu="@menu/bottom_navigation_menu" />
 </LinearLayout>

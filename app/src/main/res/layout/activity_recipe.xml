@@ -14,16 +14,24 @@
         android:layout_height="match_parent"
         android:name="androidx.navigation.fragment.NavHostFragment"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/recipe_nav_graph"
+        app:navGraph="@navigation/recipe_nav_graph" />
+
+    <ImageView
+        android:id="@+id/menuIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_menu"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigation" />
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="28dp"
+        tools:ignore="ContentDescription" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="70dp"
+        android:layout_margin="6dp"
         android:background="@drawable/bottom_nav_background"
         app:itemIconTint="@color/bottom_nav_item_color"
         app:itemTextColor="@color/bottom_nav_item_color"

@@ -34,6 +34,7 @@ class RecipeDetailFragment : Fragment() {
     private lateinit var mealId: String
     private var isFavorite: Boolean = false
     private lateinit var repository: RecipesRepository
+    private var currentMeal: Meal? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,19 +80,21 @@ class RecipeDetailFragment : Fragment() {
             if (isFavorite) {
                 showRemoveFromFavoritesDialog()
             } else {
-                isFavorite = true
-                updateFavoriteButton()
-                saveFavoriteMeal(mealId)
-                Toast.makeText(requireContext(), "Added To Favourites", Toast.LENGTH_LONG).show()
+                currentMeal?.let { meal ->
+                    isFavorite = true
+                    updateFavoriteButton()
+                    saveFavoriteMeal(meal)
+                    Toast.makeText(requireContext(), "Added To Favourites", Toast.LENGTH_LONG).show()
+                }
             }
         }
 
         fetchMealDetails(mealId)
     }
 
-    private fun saveFavoriteMeal(mealId: String) {
+    private fun saveFavoriteMeal(meal: Meal) {
         CoroutineScope(Dispatchers.IO).launch {
-            repository.addMealToFavorites(mealId)
+            repository.addMealToFavorites(meal)
         }
     }
 
@@ -142,7 +145,10 @@ class RecipeDetailFragment : Fragment() {
             override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
                 if (response.isSuccessful) {
                     val meal = response.body()?.meals?.firstOrNull()
-                    meal?.let { updateUI(it) }
+                    meal?.let {
+                        currentMeal = it
+                        updateUI(it)
+                    }
                 }
             }
 

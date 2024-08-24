@@ -1,5 +1,6 @@
 package iti.project.foodie.ui.recipe
 
+
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.TextUtils
@@ -39,7 +40,7 @@ class RecipeDetailFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            mealId = it.getString("mealId", "") // Initialize mealId here
+            mealId = it.getString("mealId", "")
         }
 
         val database = RecipeDb.getDatabase(requireContext())
@@ -98,6 +99,10 @@ class RecipeDetailFragment : Fragment() {
         }
     }
 
+    override fun onPrimaryNavigationFragmentChanged(isPrimaryNavigationFragment: Boolean) {
+        super.onPrimaryNavigationFragmentChanged(isPrimaryNavigationFragment)
+    }
+
     private fun removeFavoriteMeal(mealId: String) {
         CoroutineScope(Dispatchers.IO).launch {
             repository.removeMealFromFavorites(mealId)
@@ -105,7 +110,7 @@ class RecipeDetailFragment : Fragment() {
     }
 
     private fun updateFavoriteButton() {
-        if (isFavorite) {
+        if (this.isFavorite) {
             binding.favouriteBtn.setImageResource(R.drawable.ic_filled_heart) // Change to selected icon
         } else {
             binding.favouriteBtn.setImageResource(R.drawable.ic_third_favourite) // Change back to default icon
@@ -116,7 +121,6 @@ class RecipeDetailFragment : Fragment() {
         val builder = android.app.AlertDialog.Builder(requireContext())
         builder.setTitle("Remove From Favorites")
         builder.setMessage("Are You Sure You Want To Remove This Meal From Favorites ?")
-
         builder.setNegativeButton("No") { dialog, _ ->
             dialog.dismiss()
         }

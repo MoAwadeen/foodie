@@ -53,15 +53,23 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         binding.loginButtonLoginFragment.setOnClickListener {
             val email = binding.emailEditTextLoginFragment.text.toString()
             val password = binding.passwordEditTextLoginFragment.text.toString()
+
             userViewModel.login(email, password) { user ->
                 if (user != null) {
-                    Toast.makeText(context, "User Login successfully", Toast.LENGTH_SHORT).show()
+                    // Login successful: Store the email and login state in SharedPreferences
+                    with(sharedPreferences.edit()) {
+                        putString("email", email)
+                        putBoolean("isLoggedIn", true)
+                        apply()
+                    }
+
+                    Toast.makeText(context, "User logged in successfully", Toast.LENGTH_SHORT)
+                        .show()
                     findNavController().navigate(
-                        R.id.action_loginFragment_to_homeFragment2,
+                        R.id.action_loginFragment_to_recipeActivity,
                         null,
                         navOptions {
                             popUpTo(R.id.loginFragment) { inclusive = true }
@@ -72,6 +80,7 @@ class LoginFragment : Fragment() {
 
 
             }
+        }
             binding.signUpInLoginFragment.setOnClickListener {
                 findNavController().navigate(
                     R.id.action_loginFragment_to_registerFragment,
@@ -79,10 +88,9 @@ class LoginFragment : Fragment() {
                     navOptions {
                         popUpTo(R.id.loginFragment) { inclusive = true }
                     })
+
+
             }
-
-
-        }
 
     }
 //    onDestroyView() helps to prevent memory leaks

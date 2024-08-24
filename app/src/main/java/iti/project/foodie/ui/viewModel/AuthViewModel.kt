@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import iti.project.foodie.data.repository.AuthRepository
 import iti.project.foodie.data.source.local.User
 import kotlinx.coroutines.launch
+import java.util.Date
 
 class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
 
@@ -21,6 +22,8 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
             onResult(user)
         }
     }
+
+
 
 
     fun deleteUser(email: String) {

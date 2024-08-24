@@ -38,18 +38,21 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginTop="32dp"
         android:hint="@string/name"
-        app:boxCornerRadiusBottomEnd="24dp"
-        app:boxCornerRadiusBottomStart="24dp"
-        app:boxCornerRadiusTopEnd="24dp"
-        app:boxCornerRadiusTopStart="24dp"
+        app:boxCornerRadiusBottomEnd="18dp"
+        app:boxCornerRadiusBottomStart="18dp"
+        app:boxCornerRadiusTopEnd="18dp"
+        app:boxCornerRadiusTopStart="18dp"
         app:boxStrokeColor="@color/orange"
         app:hintEnabled="true"
 
         app:hintTextColor="@color/purple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/dateInput"
         app:layout_constraintTop_toBottomOf="@id/signUpSubtitle"
 
         app:startIconCheckable="false"
@@ -58,13 +61,13 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nameInputEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="42dp"
-            android:layout_marginEnd="42dp"
+            android:layout_height="52dp"
+
             android:inputType="textEmailAddress"
-            android:paddingStart="48dp"
+            android:paddingStart="40dp"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="RtlSymmetry"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -72,35 +75,33 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
         android:hint="@string/birth_date"
-        app:boxCornerRadiusBottomEnd="24dp"
-        app:boxCornerRadiusBottomStart="24dp"
-        app:boxCornerRadiusTopEnd="24dp"
-        app:boxCornerRadiusTopStart="24dp"
+        app:boxCornerRadiusBottomEnd="18dp"
+        app:boxCornerRadiusBottomStart="18dp"
+        app:boxCornerRadiusTopEnd="18dp"
+        app:boxCornerRadiusTopStart="18dp"
         app:boxStrokeColor="@color/orange"
-        app:endIconDrawable="@drawable/arrow"
-
-        app:endIconMode="custom"
+        app:startIconDrawable="@drawable/calendar_24"
+        app:startIconCheckable="false"
         app:hintEnabled="true"
         app:hintTextColor="@color/purple"
-
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/emailInput"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nameInput">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/dateInputEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="42dp"
-            android:layout_marginEnd="42dp"
-            android:inputType="date"
-            android:paddingStart="48dp"
-
+            android:layout_height="52dp"
+            android:inputType="none"
+            android:paddingStart="40dp"
             android:textSize="14sp"
-
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="RtlSymmetry"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -108,18 +109,21 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="32dp"
         android:hint="@string/enter_your_email_hint"
-        app:boxCornerRadiusBottomEnd="24dp"
-        app:boxCornerRadiusBottomStart="24dp"
-        app:boxCornerRadiusTopEnd="24dp"
-        app:boxCornerRadiusTopStart="24dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        app:boxCornerRadiusBottomEnd="18dp"
+        app:boxCornerRadiusBottomStart="18dp"
+        app:boxCornerRadiusTopEnd="18dp"
+        app:boxCornerRadiusTopStart="18dp"
         app:boxStrokeColor="@color/orange"
         app:hintEnabled="true"
 
         app:hintTextColor="@color/purple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/passwordInput"
 
         app:layout_constraintTop_toBottomOf="@id/dateInput"
         app:startIconDrawable="@drawable/message">
@@ -127,13 +131,13 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailInputEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="42dp"
-            android:layout_marginEnd="42dp"
+            android:layout_height="52dp"
+
             android:inputType="textEmailAddress"
-            android:paddingStart="48dp"
+            android:paddingStart="40dp"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="RtlSymmetry"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -141,12 +145,14 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
         android:hint="@string/password_hint"
-        app:boxCornerRadiusBottomEnd="24dp"
-        app:boxCornerRadiusBottomStart="24dp"
-        app:boxCornerRadiusTopEnd="24dp"
-        app:boxCornerRadiusTopStart="24dp"
+        app:boxCornerRadiusBottomEnd="18dp"
+        app:boxCornerRadiusBottomStart="18dp"
+        app:boxCornerRadiusTopEnd="18dp"
+        app:boxCornerRadiusTopStart="18dp"
         app:boxStrokeColor="@color/orange"
 
         app:hintEnabled="true"
@@ -154,6 +160,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/emailInput"
+        app:layout_constraintBottom_toTopOf="@id/signUpButton"
         app:passwordToggleEnabled="true"
         app:startIconCheckable="false"
         app:startIconDrawable="@drawable/lock">
@@ -161,11 +168,10 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordInputEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="42dp"
-            android:layout_marginEnd="42dp"
+            android:layout_height="52dp"
+
             android:inputType="textPassword"
-            android:paddingStart="48dp"
+            android:paddingStart="40dp"
             android:textSize="14sp"
             android:textStyle="bold"
             tools:ignore="RtlSymmetry" />
@@ -176,8 +182,9 @@
         style="@style/orange_Button"
         android:layout_width="match_parent"
         android:layout_height="62dp"
-        android:layout_marginStart="42dp"
-        android:layout_marginEnd="42dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
         android:text="@string/intro_sign_Up"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"

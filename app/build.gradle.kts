@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.common)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -69,4 +70,7 @@ dependencies {
     implementation ("androidx.preference:preference:1.1.1")
     implementation (libs.github.glide)
     annotationProcessor ("com.github.bumptech.glide:compiler:4.11.0")
+    implementation ("com.google.android.material:material:1.9.0") // Update to the latest version if necessary
+
+
 }

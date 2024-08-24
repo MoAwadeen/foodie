@@ -1,5 +1,7 @@
 package iti.project.foodie.ui.recipe
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
@@ -9,17 +11,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import iti.project.foodie.R
+import iti.project.foodie.data.source.remote.model.Category
 import iti.project.foodie.data.source.remote.model.Meal
 import iti.project.foodie.databinding.FragmentHomeBinding
 import iti.project.foodie.ui.adapters.HorizontalHomeAdapter
@@ -27,20 +30,18 @@ import iti.project.foodie.ui.adapters.VerticalHomeAdapter
 import iti.project.foodie.ui.auth.AuthActivity
 import iti.project.foodie.ui.viewModel.HomeViewModel
 
-class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener {
+class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener, HorizontalHomeAdapter.OnItemClickListener {
 
     private lateinit var navController: NavController
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeMvvm: HomeViewModel
-
-
-    private val verticalRecipeList = mutableListOf<Meal>()
     private lateinit var verticalAdapter: VerticalHomeAdapter
     private lateinit var horizontalAdapter: HorizontalHomeAdapter
+    private val verticalRecipeList = mutableListOf<Meal>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        homeMvvm = ViewModelProvider(this).get(HomeViewModel::class.java)
+        homeMvvm = ViewModelProvider(this)[HomeViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -48,7 +49,6 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -59,14 +59,14 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener {
 
         // Setup Horizontal RecyclerView
         val horizontalRecyclerView = view.findViewById<RecyclerView>(R.id.horizontalRecView)
-        horizontalAdapter = HorizontalHomeAdapter(requireContext(), arrayListOf())
+        horizontalAdapter = HorizontalHomeAdapter(requireContext(), mutableListOf(), this)
         horizontalRecyclerView.adapter = horizontalAdapter
         horizontalRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         // Fetch and observe data for the horizontal RecyclerView
-        homeMvvm.getHorizontalMeals()
-        observeHorizontalMeals()
+        homeMvvm.getCategories()
+        observeCategories()
 
         // Setup Vertical RecyclerView
         val verticalRecyclerView = view.findViewById<RecyclerView>(R.id.verticalRecView)
@@ -74,10 +74,7 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener {
         verticalRecyclerView.adapter = verticalAdapter
         verticalRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        // Fetch and observe data for the vertical RecyclerView
-        repeat(5) {
-            homeMvvm.getRandomMeal()
-        }
+        // Observe random meals
         observeRandomMeals()
 
         // Handle the menu icon click
@@ -87,21 +84,39 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener {
         }
     }
 
-    private fun observeRandomMeals() {
-        homeMvvm.observeRandomMealLiveData().observe(viewLifecycleOwner, Observer { meal ->
-            meal?.let {
-                verticalRecipeList.add(it)
-                verticalAdapter.notifyItemInserted(verticalRecipeList.size - 1)
+    private fun observeCategories() {
+        homeMvvm.observeCategoriesLiveData().observe(viewLifecycleOwner) { categories ->
+            categories?.let {
+                horizontalAdapter.updateData(it)
             }
-        })
+        }
     }
 
-    private fun observeHorizontalMeals() {
-        homeMvvm.observeHorizontalMealsLiveData().observe(viewLifecycleOwner, Observer { meals ->
+    @SuppressLint("NotifyDataSetChanged")
+    private fun observeRandomMeals() {
+        homeMvvm.observeRandomMealLiveData().observe(viewLifecycleOwner) { meals ->
+            verticalRecipeList.clear()
             meals?.let {
-                horizontalAdapter.updateData(it.map { meal -> meal.strMealThumb })
+                verticalRecipeList.addAll(it)
+                verticalAdapter.notifyDataSetChanged()
             }
-        })
+        }
+    }
+
+    override fun onItemClick(category: Category) {
+        homeMvvm.getMealsByCategory(category.strCategory ?: "")
+        observeMealsByCategory()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun observeMealsByCategory() {
+        homeMvvm.observeMealsByCategoryLiveData().observe(viewLifecycleOwner) { meals ->
+            verticalRecipeList.clear()
+            meals?.let {
+                verticalRecipeList.addAll(it)
+                verticalAdapter.notifyDataSetChanged()
+            }
+        }
     }
 
     private fun showPopupMenu(view: View) {
@@ -130,33 +145,66 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener {
 
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
-                R.id.profile -> {
-                    navController.navigate(R.id.profileFragment)
-                    Toast.makeText(requireContext(), item.title, Toast.LENGTH_LONG).show()
-                    true
-                }
                 R.id.aboutCreator -> {
                     navController.navigate(R.id.creatorsFragment)
-                    Toast.makeText(requireContext(), item.title, Toast.LENGTH_LONG).show()
                     true
                 }
+
                 R.id.signOut -> {
-                    val intent = Intent(requireContext(), AuthActivity::class.java)
-                    startActivity(intent)
+                    showSignOutDialog(view)
                     true
                 }
+
                 else -> false
             }
         }
         popupMenu.show()
     }
+    private fun signOutUser() {
+        val sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        with(sharedPreferences.edit()) {
+            putBoolean("isLoggedIn", false)
+            apply()
+        }
 
-    override fun onItemClick(recipe: Meal) {
-        navController.navigate(R.id.recipeDetailFragment)
-        Toast.makeText(requireContext(), "Recipe Detailed Fragment", Toast.LENGTH_LONG).show()
+        // Start the IntroActivity and clear the stack
+        val intent = Intent(requireContext(), AuthActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        startActivity(intent)
+
+        Toast.makeText(requireContext(), "Signed out successfully", Toast.LENGTH_SHORT).show()
+    }
+
+
+
+
+    private fun showSignOutDialog(view: View) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage("Are You Sure You Want To Sign Out?")
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setPositiveButton("Sign Out") { _, _ ->
+                signOutUser()
+            }
+        val alertDialog = builder.create()
+        alertDialog.show()
+
+        val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        val negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+
+        positiveButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.light_orange))
+        negativeButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.light_purple))
+    }
+
+    override fun onItemClick(meal: Meal) {
+        val bundle = Bundle().apply {
+            putString("mealId", meal.idMeal) // Pass the meal ID here
+        }
+        navController.navigate(R.id.recipeDetailFragment, bundle) // Pass the bundle when navigating
     }
 
     override fun observeRandomMeal() {
-        TODO("Not yet implemented")
     }
 }

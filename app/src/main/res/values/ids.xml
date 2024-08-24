@@ -2,4 +2,6 @@
 <resources>
     <item name="recipeCard" type="id" />
     <item name="titleView" type="id" />
+    <item name="category_icon" type="id" />
+    <item name="area_icon" type="id" />
 </resources>

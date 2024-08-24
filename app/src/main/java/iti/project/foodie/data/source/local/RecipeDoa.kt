@@ -15,4 +15,7 @@ interface RecipeDoa {
 
     @Query("SELECT * FROM `Favorite Meals` WHERE mealId = :mealId LIMIT 1")
     suspend fun getFavoriteMeal(mealId: String): Recipe?
+
+    @Query("SELECT * FROM `Favorite Meals`")
+    suspend fun getAllMeals(): List<Recipe>
 }

@@ -20,7 +20,7 @@
     <string name="all_recipes">All Recipes</string>
     <string name="home">Home</string>
     <string name="search">Search</string>
-    <string name="favourites">Favourites</string>
+    <string name="favourites">Favorites</string>
     <string name="profile">Profile</string>
 
     <string name="email">Email</string>
@@ -45,5 +45,6 @@
     <string name="karam">Karam</string>
     <string name="aziza">Aziza</string>
     <string name="instructors">Instructors</string>
+    <string name="Recent_Searches">Recent Searches</string>
 
 </resources>

@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsets
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -34,9 +35,15 @@ class RecipeDetailFragment : Fragment() {
     private lateinit var mealId: String
     private var isFavorite: Boolean = false
     private lateinit var repository: RecipesRepository
+    private var currentMeal: Meal? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activity?.window?.let { window ->
+            window.insetsController?.let { insetsController ->
+                insetsController.hide(WindowInsets.Type.statusBars())
+            }
+        }
         arguments?.let {
             mealId = it.getString("mealId", "") // Initialize mealId here
         }
@@ -79,19 +86,21 @@ class RecipeDetailFragment : Fragment() {
             if (isFavorite) {
                 showRemoveFromFavoritesDialog()
             } else {
-                isFavorite = true
-                updateFavoriteButton()
-                saveFavoriteMeal(mealId)
-                Toast.makeText(requireContext(), "Added To Favourites", Toast.LENGTH_LONG).show()
+                currentMeal?.let { meal ->
+                    isFavorite = true
+                    updateFavoriteButton()
+                    saveFavoriteMeal(meal)
+                    Toast.makeText(requireContext(), "Added To Favourites", Toast.LENGTH_LONG).show()
+                }
             }
         }
 
         fetchMealDetails(mealId)
     }
 
-    private fun saveFavoriteMeal(mealId: String) {
+    private fun saveFavoriteMeal(meal: Meal) {
         CoroutineScope(Dispatchers.IO).launch {
-            repository.addMealToFavorites(mealId)
+            repository.addMealToFavorites(meal)
         }
     }
 
@@ -142,7 +151,10 @@ class RecipeDetailFragment : Fragment() {
             override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
                 if (response.isSuccessful) {
                     val meal = response.body()?.meals?.firstOrNull()
-                    meal?.let { updateUI(it) }
+                    meal?.let {
+                        currentMeal = it
+                        updateUI(it)
+                    }
                 }
             }
 
@@ -221,5 +233,11 @@ class RecipeDetailFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
+        activity?.window?.let { window ->
+            window.insetsController?.let { insetsController ->
+                insetsController.show(WindowInsets.Type.statusBars())
+            }
+        }
     }
 }

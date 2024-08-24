@@ -1,11 +1,9 @@
 package iti.project.foodie.data.source.remote.model
 
 data class Meal(
-    val dateModified: Any,
     val idMeal: String,
     val strArea: String,
     val strCategory: String,
-    val strImageSource: Any,
     val strIngredient1: String,
     val strIngredient10: String,
     val strIngredient11: String,
@@ -32,7 +30,6 @@ data class Meal(
     val strMeasure14: String,
     val strMeasure15: String,
     val strMeasure2: String,
-    val strMeasure20: Any,
     val strMeasure3: String,
     val strMeasure4: String,
     val strMeasure5: String,
@@ -40,7 +37,6 @@ data class Meal(
     val strMeasure7: String,
     val strMeasure8: String,
     val strMeasure9: String,
-    val strSource: Any,
     val strTags: String,
     val strYoutube: String
 )

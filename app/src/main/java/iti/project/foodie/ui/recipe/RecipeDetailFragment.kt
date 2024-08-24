@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsets
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -38,6 +39,11 @@ class RecipeDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activity?.window?.let { window ->
+            window.insetsController?.let { insetsController ->
+                insetsController.hide(WindowInsets.Type.statusBars())
+            }
+        }
         arguments?.let {
             mealId = it.getString("mealId", "") // Initialize mealId here
         }
@@ -227,5 +233,11 @@ class RecipeDetailFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
+        activity?.window?.let { window ->
+            window.insetsController?.let { insetsController ->
+                insetsController.show(WindowInsets.Type.statusBars())
+            }
+        }
     }
 }

@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/breakfast"
+            android:src="@drawable/placeholder"
             app:layout_constraintBottom_toTopOf="@id/recipeTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,12 +45,13 @@
 
         <TextView
             android:id="@+id/recipeTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:textColor="@color/purple"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:textAlignment="center"
             app:layout_constraintBottom_toTopOf="@id/instructionsTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +81,7 @@
             android:focusable="true"
             android:maxLines="4"
             android:textColor="@color/purple"
-            android:textSize="14sp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/instructionsTitle"
@@ -147,7 +148,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ingredientsList"
             app:layout_constraintTop_toTopOf="@id/categoryText"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            android:layout_marginStart="26dp"/>
 
         <TextView
             android:id="@+id/categoryText"

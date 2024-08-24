@@ -85,9 +85,12 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener, Horizo
     }
 
     override fun onItemClick(category: Category) {
+        val position = horizontalAdapter.categoryList.indexOf(category)
+        horizontalAdapter.setSelectedPosition(position)
         homeMvvm.getMealsByCategory(category.strCategory)
         observeMealsByCategory()
     }
+
 
     @SuppressLint("NotifyDataSetChanged")
     private fun observeMealsByCategory() {
@@ -104,7 +107,8 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener, Horizo
         val bundle = Bundle().apply {
             putString("mealId", meal.idMeal) // Pass the meal ID here
         }
-        navController.navigate(R.id.recipeDetailFragment, bundle) // Pass the bundle when navigating
+        navController.navigate(R.id.recipeDetailFragment, bundle)
+        horizontalAdapter.notifyDataSetChanged() // Pass the bundle when navigating
     }
 
     override fun observeRandomMeal() {

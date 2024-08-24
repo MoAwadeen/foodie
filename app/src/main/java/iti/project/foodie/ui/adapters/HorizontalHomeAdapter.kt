@@ -7,15 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.card.MaterialCardView
 import iti.project.foodie.R
 import iti.project.foodie.data.source.remote.model.Category
 
 class HorizontalHomeAdapter(
     private val context: Context,
-    private val categoryList: MutableList<Category>,
-    private val listener: OnItemClickListener // Pass the listener
+    val categoryList: MutableList<Category>,
+    private val listener: OnItemClickListener,
+    private var selectedPosition: Int = RecyclerView.NO_POSITION
 ) : RecyclerView.Adapter<HorizontalHomeAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,14 +28,27 @@ class HorizontalHomeAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val category = categoryList[position]
+        val card = holder.itemView.findViewById<MaterialCardView>(R.id.card)
 
         holder.categoryName.text = category.strCategory
+
+        // Update card background based on selection
+        if (position == selectedPosition) {
+            card.setCardBackgroundColor(ContextCompat.getColor(context, R.color.light_orange))
+        } else {
+            card.setCardBackgroundColor(ContextCompat.getColor(context, R.color.light_purple))
+        }
 
         Glide.with(context)
             .load(category.strCategoryThumb)
             .into(holder.categoryView)
 
         holder.itemView.setOnClickListener {
+            // Update the selected position and notify the adapter
+            val previousPosition = selectedPosition
+            selectedPosition = position
+            notifyItemChanged(previousPosition)
+            notifyItemChanged(selectedPosition)
             listener.onItemClick(category) // Notify the listener of the click
         }
     }
@@ -56,5 +72,13 @@ class HorizontalHomeAdapter(
         categoryList.addAll(newCategories)
         notifyDataSetChanged()
     }
+
+    fun setSelectedPosition(position: Int) {
+        val previousPosition = selectedPosition
+        selectedPosition = position
+        notifyItemChanged(previousPosition)
+        notifyItemChanged(selectedPosition)
+    }
+
 
 }

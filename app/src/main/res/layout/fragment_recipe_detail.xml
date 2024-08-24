@@ -16,8 +16,8 @@
             android:id="@+id/recipeImage"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/breakfast"
+            tools:scaleType="centerCrop"
+            tools:src="@drawable/breakfast"
             app:layout_constraintBottom_toTopOf="@id/recipeTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -86,7 +86,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/instructionsTitle"
             tools:text="Put the onion and oil in a large pan and fry over a fairly high heat for 3-4 minutes" />
-
         <TextView
             android:id="@+id/ingredientsTitle"
             android:layout_width="wrap_content"
@@ -162,7 +161,6 @@
             app:layout_constraintStart_toEndOf="@id/categoryIcon"
             app:layout_constraintTop_toBottomOf="@id/ingredientsList"
             tools:text="Pasta , Meat" />
-
         <ImageView
             android:id="@+id/countryIcon"
             android:layout_width="wrap_content"

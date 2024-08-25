@@ -7,41 +7,51 @@
     android:background="@color/background"
     tools:context=".ui.auth.LoginFragment">
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:ignore="UselessParent">
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/fragment_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_marginTop="24dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/login_img"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/welcomeText"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="@string/welcome"
+                android:fontFamily="@font/lexend_bold"
                 android:textColor="@color/purple"
-                android:textSize="44sp"
+                android:textSize="40sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/enterAccount"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageView" />
 
             <TextView
                 android:id="@+id/enterAccount"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
+                android:fontFamily="@font/lexend_medium"
                 android:gravity="center"
                 android:text="@string/enter_account"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@id/emailLogin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/welcomeText" />
@@ -58,7 +68,6 @@
                 app:boxCornerRadiusBottomEnd="18dp"
                 app:boxCornerRadiusBottomStart="18dp"
                 app:boxCornerRadiusTopEnd="18dp"
-
                 app:boxCornerRadiusTopStart="18dp"
                 app:boxStrokeColor="@color/orange"
                 app:hintEnabled="true"
@@ -67,14 +76,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/enterAccount"
                 app:startIconCheckable="false"
-                app:startIconDrawable="@drawable/message"
-                tools:ignore="MissingConstraints">
+                app:startIconDrawable="@drawable/mail">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/emailEditTextLoginFragment"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:inputType="textEmailAddress"
+                    android:fontFamily="@font/lexend"
                     android:paddingStart="40dp"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -102,15 +111,15 @@
                 app:layout_constraintTop_toBottomOf="@id/emailLogin"
                 app:passwordToggleEnabled="true"
                 app:startIconCheckable="false"
-                app:startIconDrawable="@drawable/lock"
-                tools:ignore="MissingConstraints">
+                app:startIconDrawable="@drawable/password">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/passwordEditTextLoginFragment"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
-                    android:inputType="textPassword"
                     android:drawablePadding="16dp"
+                    android:inputType="textPassword"
+                    android:fontFamily="@font/lexend"
                     android:paddingStart="40dp"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -123,6 +132,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="62dp"
                 android:layout_marginStart="28dp"
+                android:fontFamily="@font/lexend_medium"
                 android:layout_marginTop="36dp"
                 android:layout_marginEnd="28dp"
                 android:text="@string/intro_login"
@@ -131,60 +141,38 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/passwordLogin" />
 
-            <TextView
-                android:id="@+id/DoNot"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginTop="8dp"
-                android:layout_marginStart="-48dp"
-                android:text="@string/don_t_have_an_account"
-                android:textColor="@color/purple"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/loginButtonLoginFragment" />
-
-            <TextView
-                android:id="@+id/signUpInLoginFragment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginStart="8dp"
-
-                android:text="@string/intro_Sign_Up"
-                android:textColor="@color/orange"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBaseline_toBaselineOf="@id/DoNot"
-                app:layout_constraintStart_toEndOf="@id/DoNot"
-                app:layout_constraintTop_toBottomOf="@id/loginButtonLoginFragment" />
-
-            <ImageView
-                android:id="@+id/backImg"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                android:layout_marginTop="16dp"
-                android:importantForAccessibility="no"
-                android:src="@drawable/login_back_img"
+                android:gravity="center"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/loginButtonLoginFragment">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
-                android:layout_marginTop="24dp"
-                android:importantForAccessibility="no"
-                android:src="@drawable/login_img"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/DoNot"
+                    android:layout_width="wrap_content"
+                    android:fontFamily="@font/lexend"
+                    android:layout_height="wrap_content"
+                    android:text="@string/don_t_have_an_account"
+                    android:textColor="@color/purple"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/signUpInLoginFragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lexend"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/intro_Sign_Up"
+                    android:textColor="@color/orange"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-
 </FrameLayout>

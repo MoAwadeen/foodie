@@ -4,25 +4,25 @@
     <item
         android:id="@+id/homeIcon"
         android:enabled="true"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/home"
         android:title="@string/home" />
 
     <item
         android:id="@+id/searchIcon"
         android:enabled="true"
-        android:icon="@drawable/ic_search"
+        android:icon="@drawable/search"
         android:title="@string/search" />
 
     <item
         android:id="@+id/favouriteIcon"
         android:enabled="true"
-        android:icon="@drawable/ic_favourite"
+        android:icon="@drawable/heart_angle_svgrepo_com"
         android:title="@string/favourites" />
 
     <item
         android:id="@+id/profileIcon"
         android:enabled="true"
-        android:icon="@drawable/ic_profile"
+        android:icon="@drawable/user_svgrepo_com"
         android:title="@string/profile" />
 
 </menu>

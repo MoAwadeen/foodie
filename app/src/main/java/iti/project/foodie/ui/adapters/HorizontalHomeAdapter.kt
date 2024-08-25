@@ -30,13 +30,16 @@ class HorizontalHomeAdapter(
         val category = categoryList[position]
         val card = holder.itemView.findViewById<MaterialCardView>(R.id.card)
 
+
         holder.categoryName.text = category.strCategory
 
         // Update card background based on selection
         if (position == selectedPosition) {
-            card.setCardBackgroundColor(ContextCompat.getColor(context, R.color.light_orange))
+            card.setCardBackgroundColor(ContextCompat.getColor(context, R.color.red))
+            holder.categoryName.setTextColor(ContextCompat.getColor(context, R.color.white))
         } else {
-            card.setCardBackgroundColor(ContextCompat.getColor(context, R.color.light_purple))
+            card.setCardBackgroundColor(ContextCompat.getColor(context, R.color.wheat))
+            holder.categoryName.setTextColor(ContextCompat.getColor(context, R.color.night))
         }
 
         Glide.with(context)

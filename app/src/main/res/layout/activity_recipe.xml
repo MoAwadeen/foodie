@@ -20,18 +20,17 @@
         android:id="@+id/menuIcon"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:src="@drawable/ic_menu"
+        android:src="@drawable/menu_dots_circle"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="32dp"
         tools:ignore="ContentDescription" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_margin="6dp"
         android:background="@drawable/bottom_nav_background"
         app:itemIconTint="@color/bottom_nav_item_color"
         app:itemTextColor="@color/bottom_nav_item_color"

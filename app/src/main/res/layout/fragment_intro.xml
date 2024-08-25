@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:background="@color/background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -11,15 +12,14 @@
 
         <ImageView
             android:id="@+id/introImage"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="-36dp"
-            android:layout_marginEnd="-36dp"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginTop="24dp"
             android:importantForAccessibility="no"
             android:src="@drawable/intro_image"
-            app:layout_constraintDimensionRatio="160:160"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:scaleType="centerInside"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -27,9 +27,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/intro_text"
+            android:textAlignment="center"
             android:textColor="@color/purple"
+            android:layout_marginTop="-12dp"
             android:textSize="36sp"
-            android:textStyle="bold"
+            android:fontFamily="@font/lexend_bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/introImage" />
@@ -37,13 +39,15 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/loginButtonIntroFragment"
             style="@style/purple_Button"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="62dp"
-            android:layout_marginStart="28dp"
             android:layout_marginTop="24dp"
+            android:layout_marginStart="28dp"
             android:layout_marginEnd="28dp"
             android:text="@string/intro_login"
             android:textSize="24sp"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/lexend_medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/introText" />
@@ -51,16 +55,18 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/signUpButton"
             style="@style/orange_Button"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="62dp"
             android:layout_marginStart="28dp"
-            android:layout_marginTop="24dp"
             android:layout_marginEnd="28dp"
-            android:text="@string/intro_Sign_Up"
+            android:layout_marginBottom="36dp"
+            android:fontFamily="@font/lexend_medium"
+            android:text="@string/sign_out"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/loginButtonIntroFragment" />
+            app:layout_constraintTop_toBottomOf="@id/loginButtonIntroFragment"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

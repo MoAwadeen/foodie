@@ -2,10 +2,13 @@ package iti.project.foodie.ui.recipe
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -38,6 +41,16 @@ class RecipeActivity : AppCompatActivity() {
             insets
         }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            @Suppress("DEPRECATION")
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.recipeNavHostFragment) as NavHostFragment
         navController = navHostFragment.navController
@@ -49,13 +62,9 @@ class RecipeActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.homeFragment , R.id.searchFragment , R.id.favoriteFragment -> {
+                R.id.homeFragment , R.id.searchFragment , R.id.favoriteFragment , R.id.profileFragment -> {
                     bottomNavigationView.visibility = View.VISIBLE
                     menuIcon.visibility = View.VISIBLE
-                }
-                R.id.profileFragment -> {
-                    bottomNavigationView.visibility = View.VISIBLE
-                    menuIcon.visibility = View.GONE
                 }
                 R.id.creatorsFragment-> {
                     bottomNavigationView.visibility = View.GONE
@@ -139,6 +148,7 @@ class RecipeActivity : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         with(sharedPreferences.edit()) {
             putBoolean("isLoggedIn", false)
+            clear()
             apply()
         }
 
@@ -152,10 +162,14 @@ class RecipeActivity : AppCompatActivity() {
     }
 
     private fun showSignOutDialog() {
+        val blurOverlay = findViewById<View>(R.id.blurOverlay)
+        blurOverlay?.visibility = View.VISIBLE
+
         val builder = AlertDialog.Builder(this)
         builder.setMessage("Are You Sure You Want To Sign Out?")
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()
+                blurOverlay?.visibility = View.GONE
             }
             .setPositiveButton("Sign Out") { _, _ ->
                 signOutUser()
@@ -168,5 +182,9 @@ class RecipeActivity : AppCompatActivity() {
 
         positiveButton.setTextColor(ContextCompat.getColor(this, R.color.light_orange))
         negativeButton.setTextColor(ContextCompat.getColor(this, R.color.light_purple))
+
+        alertDialog.setOnDismissListener {
+            blurOverlay?.visibility = View.GONE
+        }
     }
 }

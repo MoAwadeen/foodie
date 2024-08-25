@@ -11,5 +11,6 @@ data class Recipe(
     val strCategory: String?,
     val strArea: String?,
     val strIngredient1: String?,
-    val strIngredient2: String?
+    val strIngredient2: String?,
+    val userId: Int
 )

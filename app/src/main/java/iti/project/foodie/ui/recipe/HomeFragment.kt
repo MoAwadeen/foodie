@@ -103,6 +103,7 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener, Horizo
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onItemClick(meal: Meal) {
         val bundle = Bundle().apply {
             putString("mealId", meal.idMeal) // Pass the meal ID here

@@ -8,8 +8,8 @@ import androidx.room.Query
 @Dao
 interface SearchHistoryDao {
 
-    @Query("SELECT * FROM search_history ORDER BY id DESC LIMIT 5")
-    suspend fun getAllSearchHistory(): List<SearchHistory>
+    @Query("SELECT * FROM search_history WHERE userId = :userId ORDER BY id DESC LIMIT 5")
+    suspend fun getAllSearchHistory(userId: Int): List<SearchHistory>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertSearchHistory(searchHistory: SearchHistory)

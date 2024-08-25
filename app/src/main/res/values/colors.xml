@@ -7,7 +7,15 @@
     <color name="purple">#462F4C</color>
     <color name="background">#FFF8F5</color>
     <color name="light_purple">#57425C</color>
-    <color name="red">#FC324F</color>
+    <color name="red">#E60023</color>
     <color name="green">#2D8D92</color>
     <color name="blue">#4675EB</color>
+    <color name="grey">#707070</color>
+
+    <color name="red_cmyk">#FF272C</color>
+    <color name="white_smoke">#EFEFED</color>
+    <color name="salmon">#F67C6B</color>
+    <color name="wheat">#FCE5BE</color>
+    <color name="fire_engine_red">#CF2321</color>
+    <color name="night">#101010</color>
 </resources>

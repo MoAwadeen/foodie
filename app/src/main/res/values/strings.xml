@@ -2,7 +2,7 @@
     <string name="app_name">foodie</string>
     <!-- TODO: Remove or change this placeholder text -->
 
-    <string name="intro_text">Let’s cook \nbetter food</string>
+    <string name="intro_text"> Let’s cook \nbetter food</string>
     <string name="intro_login">Login</string>
     <string name="intro_Sign_Up">Sign Up</string>
     <string name="welcome">Welcome back!</string>
@@ -46,5 +46,23 @@
     <string name="aziza">Aziza</string>
     <string name="instructors">Instructors</string>
     <string name="Recent_Searches">Recent Searches</string>
+
+    <string name="user_successfully">User logged in successfully</string>
+    <string name="user_invalid">Invalid email or password</string>
+    <string name="fill_all_fields">Please fill out all fields</string>
+    <string name="register_successfully">User registered successfully</string>
+    <string name="sign_out_confirmation">Are You Sure You Want To Sign Out?</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="signed_out_successfully">Signed out successfully</string>
+    <string name="add_to_favourites">Added To Favourites</string>
+    <string name="remove_from_favourites">Remove From Favorites</string>
+    <string name="remove_from_favourites_confirmation">Are You Sure You Want To Remove This Meal From Favorites ?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="removed_from_favourites">Removed From Favourites</string>
+
+
+
 
 </resources>

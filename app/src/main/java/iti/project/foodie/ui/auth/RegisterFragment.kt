@@ -89,7 +89,7 @@ class RegisterFragment : Fragment() {
 
 
             if (name.isEmpty() || birthDate.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(context, "Please fill out all fields", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, R.string.fill_all_fields, Toast.LENGTH_SHORT).show()
             } else {
 
                 val user = User(name = name, birthDate = birthDate, email = email, password = password)
@@ -101,7 +101,7 @@ class RegisterFragment : Fragment() {
                     }
 
 
-                    Toast.makeText(context, "User registered successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.register_successfully, Toast.LENGTH_SHORT).show()
                     findNavController().navigate(
                         R.id.action_registerFragment_to_recipeActivity,
                         null,

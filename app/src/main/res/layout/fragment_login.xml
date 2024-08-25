@@ -10,7 +10,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/fragment_login"
@@ -109,6 +110,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:inputType="textPassword"
+                    android:drawablePadding="16dp"
                     android:paddingStart="40dp"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -164,6 +166,7 @@
                 android:layout_width="300dp"
                 android:layout_height="300dp"
                 android:layout_marginTop="16dp"
+                android:importantForAccessibility="no"
                 android:src="@drawable/login_back_img"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -174,6 +177,7 @@
                 android:layout_width="250dp"
                 android:layout_height="250dp"
                 android:layout_marginTop="24dp"
+                android:importantForAccessibility="no"
                 android:src="@drawable/login_img"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

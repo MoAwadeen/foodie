@@ -113,7 +113,7 @@ class RecipeDetailFragment : Fragment() {
                     isFavorite = true
                     updateFavoriteButton()
                     saveFavoriteMeal(meal)
-                    Toast.makeText(requireContext(), "Added To Favourites", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), R.string.add_to_favourites, Toast.LENGTH_LONG).show()
                 }
             }
         }
@@ -143,18 +143,18 @@ class RecipeDetailFragment : Fragment() {
 
     private fun showRemoveFromFavoritesDialog() {
         val builder = android.app.AlertDialog.Builder(requireContext())
-        builder.setTitle("Remove From Favorites")
-        builder.setMessage("Are You Sure You Want To Remove This Meal From Favorites ?")
+        builder.setTitle(R.string.remove_from_favourites)
+        builder.setMessage(R.string.remove_from_favourites_confirmation)
 
-        builder.setNegativeButton("No") { dialog, _ ->
+        builder.setNegativeButton(R.string.no) { dialog, _ ->
             dialog.dismiss()
         }
 
-        builder.setPositiveButton("Yes") { dialog, _ ->
+        builder.setPositiveButton(R.string.yes) { dialog, _ ->
             isFavorite = false
             updateFavoriteButton()
             removeFavoriteMeal(mealId)
-            Toast.makeText(requireContext(), "Removed From Favourites", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), R.string.removed_from_favourites, Toast.LENGTH_LONG).show()
             dialog.dismiss()
         }
 

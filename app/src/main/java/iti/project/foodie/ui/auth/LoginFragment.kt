@@ -66,7 +66,7 @@ class LoginFragment : Fragment() {
                         apply()
                     }
 
-                    Toast.makeText(context, "User logged in successfully", Toast.LENGTH_SHORT)
+                    Toast.makeText(context, R.string.user_successfully, Toast.LENGTH_SHORT)
                         .show()
                     findNavController().navigate(
                         R.id.action_loginFragment_to_recipeActivity,
@@ -75,7 +75,7 @@ class LoginFragment : Fragment() {
                             popUpTo(R.id.loginFragment) { inclusive = true }
                         })
                 } else {
-                    Toast.makeText(context, "Invalid email or password", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.user_invalid, Toast.LENGTH_SHORT).show()
                 }
 
 

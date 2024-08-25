@@ -158,7 +158,7 @@ class RecipeActivity : AppCompatActivity() {
         }
         startActivity(intent)
 
-        Toast.makeText(this, "Signed out successfully", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, R.string.signed_out_successfully, Toast.LENGTH_SHORT).show()
     }
 
     private fun showSignOutDialog() {
@@ -166,12 +166,12 @@ class RecipeActivity : AppCompatActivity() {
         blurOverlay?.visibility = View.VISIBLE
 
         val builder = AlertDialog.Builder(this)
-        builder.setMessage("Are You Sure You Want To Sign Out?")
-            .setNegativeButton("Cancel") { dialog, _ ->
+        builder.setMessage(R.string.sign_out_confirmation)
+            .setNegativeButton(R.string.cancel) { dialog, _ ->
                 dialog.dismiss()
                 blurOverlay?.visibility = View.GONE
             }
-            .setPositiveButton("Sign Out") { _, _ ->
+            .setPositiveButton(R.string.sign_out) { _, _ ->
                 signOutUser()
             }
         val alertDialog = builder.create()

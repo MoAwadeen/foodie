@@ -11,12 +11,17 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import iti.project.foodie.R
 import iti.project.foodie.data.source.remote.model.Category
 import iti.project.foodie.data.source.remote.model.Meal
 import iti.project.foodie.ui.adapters.HorizontalHomeAdapter
 import iti.project.foodie.ui.adapters.VerticalHomeAdapter
 import iti.project.foodie.ui.viewModel.HomeViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener, HorizontalHomeAdapter.OnItemClickListener {
 
@@ -24,6 +29,7 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener, Horizo
     private lateinit var homeMvvm: HomeViewModel
     private lateinit var verticalAdapter: VerticalHomeAdapter
     private lateinit var horizontalAdapter: HorizontalHomeAdapter
+    private lateinit var animationView: LottieAnimationView
     private val verticalRecipeList = mutableListOf<Meal>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +48,9 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener, Horizo
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Initialize the Lottie animation view
+        animationView = view.findViewById(R.id.animationView)
+
         navController = NavHostFragment.findNavController(this)
 
         // Setup Horizontal RecyclerView
@@ -51,16 +60,17 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener, Horizo
         horizontalRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        // Fetch and observe data for the horizontal RecyclerView
-        homeMvvm.getCategories()
-        observeCategories()
-
         // Setup Vertical RecyclerView
         val verticalRecyclerView = view.findViewById<RecyclerView>(R.id.verticalRecView)
         verticalAdapter = VerticalHomeAdapter(verticalRecipeList, this)
         verticalRecyclerView.adapter = verticalAdapter
         verticalRecyclerView.layoutManager = LinearLayoutManager(context)
 
+        startLoadingAnimation()
+
+        // Fetch and observe data for the horizontal RecyclerView
+        homeMvvm.getCategories()
+        observeCategories()
         // Observe random meals
         observeRandomMeals()
     }
@@ -69,6 +79,7 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener, Horizo
         homeMvvm.observeCategoriesLiveData().observe(viewLifecycleOwner) { categories ->
             categories?.let {
                 horizontalAdapter.updateData(it)
+                //stopLoadingAnimation() // Stop animation once data is loaded
             }
         }
     }
@@ -80,6 +91,10 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener, Horizo
             meals?.let {
                 verticalRecipeList.addAll(it)
                 verticalAdapter.notifyDataSetChanged()
+                CoroutineScope(Dispatchers.IO).launch {
+                    delay(2000)
+                }
+                stopLoadingAnimation() // Stop animation once data is loaded
             }
         }
     }
@@ -110,6 +125,16 @@ class HomeFragment : Fragment(), VerticalHomeAdapter.OnItemClickListener, Horizo
         }
         navController.navigate(R.id.recipeDetailFragment, bundle)
         horizontalAdapter.notifyDataSetChanged() // Pass the bundle when navigating
+    }
+
+    private fun startLoadingAnimation() {
+        animationView.visibility = View.VISIBLE
+        animationView.playAnimation()
+    }
+
+    private fun stopLoadingAnimation() {
+        animationView.visibility = View.GONE
+        animationView.cancelAnimation()
     }
 
     override fun observeRandomMeal() {

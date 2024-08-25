@@ -11,11 +11,11 @@ import android.widget.LinearLayout
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.chip.Chip
 import iti.project.foodie.R
 import iti.project.foodie.data.repository.AuthRepository
@@ -40,13 +40,13 @@ class SearchFragment : Fragment() {
     private lateinit var searchAdapter: SearchAdapter
     private lateinit var searchResultsRecyclerView: RecyclerView
     private lateinit var searchView: SearchView
-    private lateinit var navController: NavController
     private lateinit var database: HistoryDB
     private lateinit var searchHistoryDao: SearchHistoryDao
     private lateinit var authRepository: AuthRepository
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var email: String
     private var currentUserId: Int? = null
+    private lateinit var loadingAnimation: LottieAnimationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +75,8 @@ class SearchFragment : Fragment() {
         // Initialize views
         searchView = view.findViewById(R.id.search_view)
         searchResultsRecyclerView = view.findViewById(R.id.search_results_recycler_view)
+        loadingAnimation = view.findViewById(R.id.loadingAnimation)
+
         searchResultsRecyclerView.layoutManager = LinearLayoutManager(context)
 
         searchAdapter = SearchAdapter { meal ->
@@ -98,6 +100,7 @@ class SearchFragment : Fragment() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
                     saveSearchQueryToHistory(it)
+                    startLoadingAnimation()
                     fetchMealsByName(it)
                 }
                 return true
@@ -109,6 +112,16 @@ class SearchFragment : Fragment() {
         })
 
         return view
+    }
+
+    private fun startLoadingAnimation() {
+        loadingAnimation.visibility = View.VISIBLE
+        loadingAnimation.playAnimation()
+    }
+
+    private fun stopLoadingAnimation() {
+        loadingAnimation.visibility = View.GONE
+        loadingAnimation.cancelAnimation()
     }
 
     private fun saveSearchQueryToHistory(query: String) {
@@ -159,6 +172,7 @@ class SearchFragment : Fragment() {
     private fun fetchMealsByName(query: String) {
         RetrofitModule.api.getMealByName(query).enqueue(object : Callback<MealList> {
             override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
+                stopLoadingAnimation() // Stop animation when the response is received
                 if (response.isSuccessful) {
                     val mealList = response.body()?.meals
                     if (mealList != null) {
@@ -172,6 +186,7 @@ class SearchFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<MealList>, t: Throwable) {
+                stopLoadingAnimation() // Stop animation on failure
                 Log.e("SearchFragment", "API call failed", t)
             }
         })
@@ -184,3 +199,4 @@ class SearchFragment : Fragment() {
         findNavController().navigate(R.id.recipeDetailFragment, bundle)
     }
 }
+

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import iti.project.foodie.R
 import iti.project.foodie.data.repository.AuthRepository
 import iti.project.foodie.data.repository.RecipesRepository
@@ -19,6 +20,7 @@ import iti.project.foodie.data.source.local.RoomDb
 import iti.project.foodie.ui.adapters.FavoriteAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -31,6 +33,7 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.OnItemClickListener {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var email: String
     private var currentUserId: Int? = null
+    private lateinit var loadingAnimation: LottieAnimationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +68,12 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.OnItemClickListener {
         favoriteAdapter = FavoriteAdapter(emptyList(), this)
         favoriteRecyclerView.adapter = favoriteAdapter
 
+        // Initialize the Lottie animation view
+        loadingAnimation = view.findViewById(R.id.animationView)
+
+        // Start the animation and fetch data
+        startLoadingAnimation()
+
         fetchFavoriteMeals()
 
         return view
@@ -77,9 +86,21 @@ class FavoriteFragment : Fragment(), FavoriteAdapter.OnItemClickListener {
                 val favoriteMeals = recipesRepository.getAllFavoriteMeals(userId) // Pass user ID
                 withContext(Dispatchers.Main) {
                     favoriteAdapter.updateData(favoriteMeals)
+                    delay(2000)
+                    stopLoadingAnimation() // Stop animation once data is loaded
                 }
             }
         }
+    }
+
+    private fun startLoadingAnimation() {
+        loadingAnimation.visibility = View.VISIBLE
+        loadingAnimation.playAnimation()
+    }
+
+    private fun stopLoadingAnimation() {
+        loadingAnimation.visibility = View.GONE
+        loadingAnimation.cancelAnimation()
     }
 
     override fun onItemClick(meal: Recipe) {

@@ -12,9 +12,11 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.textfield.TextInputEditText
 import iti.project.foodie.R
 import iti.project.foodie.databinding.FragmentProfileBinding
 import iti.project.foodie.ui.auth.AuthActivity
@@ -27,7 +29,7 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
 
         // Initialize SharedPreferences
@@ -58,8 +60,8 @@ class ProfileFragment : Fragment() {
 
         // Display user information in the ProfileFragment's UI
         binding.profileNameInputEditText.setText(name)
-        binding.profileEmailInputEditText.setText(email)
-        binding.profileDateInputEditText.setText(birthDate)
+        binding.root.setTextDirection(email)
+        binding.profileNameInputEditText.setText(birthDate)
     }
 
     private fun showPopupMenu(view: View) {
@@ -129,6 +131,10 @@ class ProfileFragment : Fragment() {
             }
         val alertDialog = builder.create()
         alertDialog.show()
+        val userName = "John Doe" // Replace this with the actual user's name
+        val profileNameEditText: TextInputEditText = findViewById(R.id.profileName)
+        profileNameEditText.setText(userName)
+
 
         val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
         val negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
@@ -141,9 +147,17 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private fun findViewById(profileName: Int): TextInputEditText {
+        TODO("Not yet implemented")
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+}
+
+private fun ConstraintLayout.setTextDirection(email: String?) {
+    TODO("Not yet implemented")
 }

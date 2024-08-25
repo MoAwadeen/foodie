@@ -18,9 +18,8 @@ class AuthRepository(private val userDao: UserDao) {
         userDao.deleteUserByEmail(email)
     }
 
-
-
-
-
+    suspend fun getCurrentUserId(email: String): Int? {
+        return userDao.getCurrentUserId(email)
+    }
 
 }

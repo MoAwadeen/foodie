@@ -32,4 +32,10 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
 
         }
     }
+
+    fun getCurrentUserId(email: String){
+        viewModelScope.launch {
+            authRepository.getCurrentUserId(email)
+        }
+    }
 }

@@ -1,6 +1,8 @@
 package iti.project.foodie.ui.recipe
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -14,8 +16,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import iti.project.foodie.R
+import iti.project.foodie.data.repository.AuthRepository
 import iti.project.foodie.data.repository.RecipesRepository
 import iti.project.foodie.data.source.local.RecipeDb
+import iti.project.foodie.data.source.local.RoomDb
 import iti.project.foodie.data.source.remote.model.Meal
 import iti.project.foodie.data.source.remote.model.MealList
 import iti.project.foodie.data.source.remote.network.RetrofitModule
@@ -37,20 +41,39 @@ class RecipeDetailFragment : Fragment() {
     private lateinit var repository: RecipesRepository
     private var currentMeal: Meal? = null
 
+    private lateinit var authRepository: AuthRepository
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var email: String
+    private var currentUserId: Int? = null // Variable to hold the current user ID
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        /*
         activity?.window?.let { window ->
             window.insetsController?.let { insetsController ->
                 insetsController.hide(WindowInsets.Type.statusBars())
             }
         }
+         */
+
+        sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        email = sharedPreferences.getString("email", null) ?: ""
+
         arguments?.let {
             mealId = it.getString("mealId", "") // Initialize mealId here
         }
 
         val database = RecipeDb.getDatabase(requireContext())
-        val recipeDao = database.RecipeDoa()
+        val recipeDao = database.RecipeDao()
         repository = RecipesRepository(recipeDao)
+
+        val userDb = RoomDb.getDataBase(requireContext())
+        val userDao = userDb.UserDao()
+        authRepository = AuthRepository(userDao)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            currentUserId = userDb.UserDao().getCurrentUserId(email)
+        }
     }
 
     override fun onCreateView(
@@ -67,7 +90,7 @@ class RecipeDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         CoroutineScope(Dispatchers.IO).launch {
-            isFavorite = repository.isMealFavorite(mealId)
+            isFavorite = repository.isMealFavorite(mealId , currentUserId!!)
             CoroutineScope(Dispatchers.Main).launch {
                 updateFavoriteButton()
             }
@@ -100,13 +123,13 @@ class RecipeDetailFragment : Fragment() {
 
     private fun saveFavoriteMeal(meal: Meal) {
         CoroutineScope(Dispatchers.IO).launch {
-            repository.addMealToFavorites(meal)
+            repository.addMealToFavorites(meal , currentUserId!!)
         }
     }
 
     private fun removeFavoriteMeal(mealId: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            repository.removeMealFromFavorites(mealId)
+            repository.removeMealFromFavorites(mealId , currentUserId!!)
         }
     }
 
@@ -233,11 +256,12 @@ class RecipeDetailFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-
+        /*
         activity?.window?.let { window ->
             window.insetsController?.let { insetsController ->
                 insetsController.show(WindowInsets.Type.statusBars())
             }
         }
+         */
     }
 }

@@ -11,22 +11,22 @@ import com.bumptech.glide.Glide
 import iti.project.foodie.R
 import iti.project.foodie.data.source.remote.model.Meal
 
-class VerticalHomeAdapter(private var mealList: List<Meal> ,
-                          private val listener: OnItemClickListener) :
-    RecyclerView.Adapter<VerticalHomeAdapter.RecipeViewHolder>() {
+class VerticalHomeAdapter(
+    private var mealList: List<Meal>,
+    private val listener: OnItemClickListener
+) : RecyclerView.Adapter<VerticalHomeAdapter.RecipeViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClick(meal : Meal)
+        fun onItemClick(meal: Meal)
         fun observeRandomMeal()
     }
 
-    // Define a view holder for the recipe items
-    class RecipeViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+    class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val recipeImage: ImageView = itemView.findViewById(R.id.recipeImage)
         val recipeTitle: TextView = itemView.findViewById(R.id.recipeTitle)
         val recipeCountry: TextView = itemView.findViewById(R.id.recipeCountry)
         val recipeCategory: TextView = itemView.findViewById(R.id.recipeCategory)
-        val recipeIngredient : TextView = itemView.findViewById(R.id.recipeIngredients)
+        val recipeIngredient: TextView = itemView.findViewById(R.id.recipeIngredients)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
@@ -35,20 +35,44 @@ class VerticalHomeAdapter(private var mealList: List<Meal> ,
         return RecipeViewHolder(view)
     }
 
+    fun String?.orDefault(default: String = ""): String = this?.takeIf { it != "null" } ?: default
+
+    fun String?.orDefaultImage(defaultImageRes: Int): String = this?.takeIf { it != "null" } ?: defaultImageRes.toString()
+
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         val meal = mealList[position]
 
         // Load image using Glide
-        Glide.with(holder.itemView.context).load(meal.strMealThumb).into(holder.recipeImage)
+        Glide.with(holder.itemView.context)
+            .load(meal.strMealThumb.orDefaultImage(R.drawable.placeholder))
+            .into(holder.recipeImage)
 
-        holder.recipeTitle.text = meal.strMeal
-        //meal.strArea?.let {holder.recipeCountry.text = it}
-        holder.recipeCountry.text = meal.strArea?:""
-        holder.recipeCategory.text = meal.strCategory
-        holder.recipeIngredient.text = ("${meal.strIngredient1} , ${meal.strIngredient2} , ....." )
+        holder.recipeTitle.text = meal.strMeal.orDefault("")
+        holder.recipeCountry.text = meal.strArea.orDefault("")
+        holder.recipeCategory.text = meal.strCategory.orDefault("")
 
-        // Handle item click
+        // Concatenate ingredients safely
+        val ingredients = listOf(
+            meal.strIngredient1,
+            meal.strIngredient2,
+            meal.strIngredient3,
+            meal.strIngredient4,
+            meal.strIngredient5,
+            meal.strIngredient6,
+            meal.strIngredient7,
+            meal.strIngredient8,
+            meal.strIngredient9,
+            meal.strIngredient10,
+            meal.strIngredient11,
+            meal.strIngredient12,
+            meal.strIngredient13,
+            meal.strIngredient14,
+            meal.strIngredient15
+        ).filter { !it.isNullOrEmpty() && it != "null" }.joinToString(" , ")
+
+        holder.recipeIngredient.text = if (ingredients.isNotBlank()) ingredients else ""
+
         holder.itemView.setOnClickListener {
             listener.onItemClick(meal)
         }
@@ -63,5 +87,4 @@ class VerticalHomeAdapter(private var mealList: List<Meal> ,
         mealList = newMealList
         notifyDataSetChanged()
     }
-
 }

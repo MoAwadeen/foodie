@@ -4,7 +4,7 @@
 
     <string name="intro_text">Let’s cook \nbetter food</string>
     <string name="intro_login">Login</string>
-    <string name="intro_sign_Up">sign Up</string>
+    <string name="intro_Sign_Up">Sign Up</string>
     <string name="welcome">Welcome back!</string>
     <string name="enter_account">Please enter your account here</string>
     <string name="enter_your_email_hint">Enter your email</string>

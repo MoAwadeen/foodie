@@ -3,12 +3,14 @@ package iti.project.foodie.ui.recipe
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -48,19 +50,26 @@ class RecipeDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        /*
+
         activity?.window?.let { window ->
-            window.insetsController?.let { insetsController ->
-                insetsController.hide(WindowInsets.Type.statusBars())
-            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            @Suppress("DEPRECATION")
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
         }
-         */
+        }
+
 
         sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         email = sharedPreferences.getString("email", null) ?: ""
 
         arguments?.let {
-            mealId = it.getString("mealId", "") // Initialize mealId here
+            mealId = it.getString("mealId", "")
         }
 
         val database = RecipeDb.getDatabase(requireContext())
@@ -256,12 +265,14 @@ class RecipeDetailFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        /*
+
         activity?.window?.let { window ->
-            window.insetsController?.let { insetsController ->
-                insetsController.show(WindowInsets.Type.statusBars())
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                window.insetsController?.show(WindowInsets.Type.statusBars())
+            } else {
+                @Suppress("DEPRECATION")
+                window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
             }
         }
-         */
     }
 }

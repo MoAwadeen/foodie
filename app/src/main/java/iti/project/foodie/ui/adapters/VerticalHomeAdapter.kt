@@ -51,7 +51,7 @@ class VerticalHomeAdapter(
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         val meal = mealList[position]
 
-        // Load image using Glide
+
         Glide.with(holder.itemView.context)
             .load(meal.strMealThumb.orDefaultImage(R.drawable.placeholder))
             .into(holder.recipeImage)
@@ -60,23 +60,11 @@ class VerticalHomeAdapter(
         holder.recipeCountry.text = meal.strArea.orDefault("")
         holder.recipeCategory.text = meal.strCategory.orDefault("")
 
-        // Concatenate ingredients safely
         val ingredients = listOf(
             meal.strIngredient1,
             meal.strIngredient2,
-            meal.strIngredient3,
-            meal.strIngredient4,
-            meal.strIngredient5,
-            meal.strIngredient6,
-            meal.strIngredient7,
-            meal.strIngredient8,
-            meal.strIngredient9,
-            meal.strIngredient10,
-            meal.strIngredient11,
-            meal.strIngredient12,
-            meal.strIngredient13,
-            meal.strIngredient14,
-            meal.strIngredient15
+            meal.strIngredient3
+
         ).filter { !it.isNullOrEmpty() && it != "null" }.joinToString(" , ")
 
         holder.recipeIngredient.text = if (ingredients.isNotBlank()) ingredients else ""

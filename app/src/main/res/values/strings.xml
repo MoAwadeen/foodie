@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">foodie</string>
+    <string name="app_name">Foodie</string>
     <!-- TODO: Remove or change this placeholder text -->
 
     <string name="intro_text"> Let’s cook \nbetter food</string>
@@ -29,7 +29,6 @@
     <string name="measures">Measures</string>
     <string name="watch_the_full_recipe_here">Watch the full recipe here</string>
     <string name="search_for_meals">Search for meals</string>
-
 
 
     <string name="sign_out">Sign Out</string>
@@ -67,5 +66,6 @@
     <string name="recipe_title">Recipe Title</string>
     <string name="recipe_ingredients">Recipe Ingredients</string>
     <string name="category">Category</string>
+    <string name="logoutMessage">Sign out of foodie ?</string>
 
 </resources>

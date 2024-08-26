@@ -17,15 +17,13 @@ class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
-        Thread.sleep(2000)
-
+        Thread.sleep(3000)
         sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
 
         if (isLoggedIn) {
-            // If the user is logged in, navigate directly to the home screen
             startActivity(Intent(this, RecipeActivity::class.java))
-            finish() // Finish the AuthActivity to prevent going back to it
+            finish()
         } else {
             enableEdgeToEdge()
             setContentView(R.layout.activity_auth)

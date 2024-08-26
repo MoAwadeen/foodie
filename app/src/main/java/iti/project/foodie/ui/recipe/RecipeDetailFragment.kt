@@ -181,7 +181,7 @@ class RecipeDetailFragment : Fragment() {
         val negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
 
         positiveButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
-        negativeButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.wheat))
+        negativeButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.night))
     }
 
     private fun fetchMealDetails(mealId: String) {
@@ -196,15 +196,12 @@ class RecipeDetailFragment : Fragment() {
                         CoroutineScope(Dispatchers.IO).launch {
                             delay(2000)
                         }
-                        // Hide the Lottie animation when data is loaded
                         binding.animationView.visibility = View.GONE
                     }
                 }
             }
 
             override fun onFailure(call: Call<MealList>, t: Throwable) {
-                // Handle the error
-                // Hide the Lottie animation when data is loaded
                 binding.animationView.visibility = View.VISIBLE
             }
         })

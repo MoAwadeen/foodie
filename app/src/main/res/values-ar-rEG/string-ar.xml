@@ -67,5 +67,5 @@
     <string name="recipe_title">عنوان الوصفة</string>
     <string name="recipe_ingredients">مكونات الوصفة</string>
     <string name="category">الفئة</string>
-
+    <string name="logoutMessage">تسجيل الخروج من فودي ؟</string>
 </resources>

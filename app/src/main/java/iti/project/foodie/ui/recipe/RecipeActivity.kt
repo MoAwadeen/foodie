@@ -153,6 +153,7 @@ class RecipeActivity : AppCompatActivity() {
         blurOverlay?.visibility = View.VISIBLE
 
         val builder = AlertDialog.Builder(this)
+        builder.setTitle(R.string.logoutMessage)
         builder.setMessage(R.string.sign_out_confirmation)
             .setNegativeButton(R.string.cancel) { dialog, _ ->
                 dialog.dismiss()
@@ -167,8 +168,8 @@ class RecipeActivity : AppCompatActivity() {
         val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
         val negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
 
-        positiveButton.setTextColor(ContextCompat.getColor(this, R.color.light_orange))
-        negativeButton.setTextColor(ContextCompat.getColor(this, R.color.light_purple))
+        positiveButton.setTextColor(ContextCompat.getColor(this, R.color.red))
+        negativeButton.setTextColor(ContextCompat.getColor(this, R.color.night))
 
         alertDialog.setOnDismissListener {
             blurOverlay?.visibility = View.GONE

@@ -151,9 +151,9 @@ class RecipeDetailFragment : Fragment() {
 
     private fun updateFavoriteButton() {
         if (isFavorite) {
-            binding.favouriteBtn.setImageResource(R.drawable.ic_filled_heart) // Change to selected icon
+            binding.favouriteBtn.setImageResource(R.drawable.heart_svgrepo_com_filled) // Change to selected icon
         } else {
-            binding.favouriteBtn.setImageResource(R.drawable.ic_third_favourite) // Change back to default icon
+            binding.favouriteBtn.setImageResource(R.drawable.heart_svgrepo_com) // Change back to default icon
         }
     }
 
@@ -180,8 +180,8 @@ class RecipeDetailFragment : Fragment() {
         val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
         val negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
 
-        positiveButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.light_orange))
-        negativeButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.light_purple))
+        positiveButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
+        negativeButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.wheat))
     }
 
     private fun fetchMealDetails(mealId: String) {

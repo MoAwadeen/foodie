@@ -74,6 +74,7 @@ class HomeViewModel : ViewModel() {
                         mealsByCategoryLiveData.value = it
                     }
                 }
+
             }
 
             override fun onFailure(call: Call<MealList>, t: Throwable) {

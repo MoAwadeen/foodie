@@ -1,6 +1,7 @@
 package iti.project.foodie.ui.adapters
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,11 +34,18 @@ class VerticalHomeAdapter(
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.vertical_item_view, parent, false)
         return RecipeViewHolder(view)
+
     }
+
+    override fun getItemCount(): Int {
+        return mealList.size
+    }
+
 
     fun String?.orDefault(default: String = ""): String = this?.takeIf { it != "null" } ?: default
 
-    fun String?.orDefaultImage(defaultImageRes: Int): String = this?.takeIf { it != "null" } ?: defaultImageRes.toString()
+    fun String?.orDefaultImage(defaultImageRes: Int): String =
+        this?.takeIf { it != "null" } ?: defaultImageRes.toString()
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
@@ -78,13 +86,11 @@ class VerticalHomeAdapter(
         }
     }
 
-    override fun getItemCount(): Int {
-        return mealList.size
-    }
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(newMealList: List<Meal>) {
         mealList = newMealList
         notifyDataSetChanged()
     }
+
 }

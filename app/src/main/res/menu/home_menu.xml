@@ -3,12 +3,12 @@
 
     <item
         android:id="@+id/aboutCreator"
-        android:icon="@drawable/ic_creator"
+        android:icon="@drawable/user_svgrepo_com"
         android:title="@string/about_the_creator" />
 
     <item
         android:id="@+id/signOut"
-        android:icon="@drawable/ic_sign_out"
+        android:icon="@drawable/logout_3_svgrepo_com"
         android:title="@string/sign_out" />
 
 </menu>

@@ -71,5 +71,5 @@ dependencies {
     implementation (libs.github.glide)
     annotationProcessor ("com.github.bumptech.glide:compiler:4.11.0")
     implementation ("com.google.android.material:material:1.9.0") // Update to the latest version if necessary
-    implementation("com.airbnb.android:lottie:3.4.0")
+    implementation(libs.lottie.v340)
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="@color/background"
+    android:background="@color/night"
     tools:context=".ui.auth.RegisterFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,7 +34,7 @@
             android:fontFamily="@font/lexend_medium"
             android:text="@string/enter_your_info"
             android:textSize="18sp"
-            android:textColor="@color/night"
+            android:textColor="@color/wheat"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -92,7 +92,7 @@
             app:boxStrokeColor="@color/red"
             app:hintEnabled="true"
             android:fontFamily="@font/lexend"
-            app:hintTextColor="@color/night"
+            app:hintTextColor="@color/wheat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nameInput"
@@ -129,7 +129,7 @@
             app:boxCornerRadiusTopStart="18dp"
             app:boxStrokeColor="@color/red"
             app:hintEnabled="true"
-            app:hintTextColor="@color/night"
+            app:hintTextColor="@color/wheat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/dateInput"
@@ -165,7 +165,7 @@
             app:boxCornerRadiusTopStart="18dp"
             app:boxStrokeColor="@color/red"
             app:hintEnabled="true"
-            app:hintTextColor="@color/night"
+            app:hintTextColor="@color/wheat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/emailInput"
@@ -190,7 +190,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/signUpButton"
-            style="@style/orange_Button"
+            style="@style/orange_Button_night"
             app:strokeColor="@color/red"
             app:strokeWidth="3dp"
             android:layout_width="match_parent"

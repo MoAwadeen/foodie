@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="@color/night">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:textColor="@color/night"
+            android:textColor="@color/wheat"
             android:textSize="24sp"
             android:textStyle="bold"
             android:fontFamily="@font/lexend_bold"
@@ -98,7 +98,7 @@
             android:padding="8dp"
             android:focusable="true"
             android:maxLines="4"
-            android:textColor="@color/night"
+            android:textColor="@color/wheat"
             android:textSize="16sp"
             android:fontFamily="@font/lexend_regular"
             app:layout_constraintEnd_toEndOf="parent"
@@ -137,7 +137,7 @@
             android:id="@+id/ingredientsList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/night"
+            android:textColor="@color/wheat"
             android:textSize="12sp"
             android:fontFamily="@font/lexend_regular"
             app:layout_constraintBottom_toTopOf="@id/categoryIcon"
@@ -150,7 +150,7 @@
             android:id="@+id/measuresList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/night"
+            android:textColor="@color/wheat"
             android:textSize="12sp"
             android:fontFamily="@font/lexend_regular"
             app:layout_constraintBottom_toTopOf="@id/countryIcon"

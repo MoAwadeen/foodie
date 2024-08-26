@@ -33,7 +33,7 @@
             android:id="@+id/meal_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/night"
+            android:textColor="@color/wheat"
             android:textSize="18sp"
             android:text="@string/recipe_title"
             android:fontFamily="@font/lexend_semibold"

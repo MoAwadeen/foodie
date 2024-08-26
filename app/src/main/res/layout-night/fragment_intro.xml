@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="@color/background">
+    android:background="@color/night">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
@@ -38,7 +38,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/loginButtonIntroFragment"
-            style="@style/purple_Button"
+            style="@style/purple_Button_night"
             android:layout_width="match_parent"
             android:layout_height="62dp"
             android:layout_marginStart="28dp"
@@ -54,7 +54,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/signUpButton"
-            style="@style/orange_Button"
+            style="@style/orange_Button_night"
             android:layout_width="match_parent"
             android:layout_height="62dp"
             android:layout_marginStart="28dp"

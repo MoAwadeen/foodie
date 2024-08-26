@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/background"
+    android:background="@color/wheat"
     tools:context=".ui.recipe.CreatorsFragment">
 
     <RelativeLayout
@@ -15,15 +15,14 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animationView"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
             android:layout_centerHorizontal="true"
             app:lottie_rawRes="@raw/foodie_animation"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintWidth_percent="0.4" />
+            app:layout_constraintWidth_percent="0.6" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,7 +43,7 @@
                     android:layout_centerHorizontal="true"
                     android:text="@string/find_us_in_linkedin"
                     android:textStyle="bold"
-                    android:textColor="@color/purple"
+                    android:textColor="@color/red"
                     android:layout_marginBottom="24dp"
                     android:textSize="24sp" />
                 <TextView
@@ -56,7 +55,7 @@
                     android:layout_marginTop="16dp"
                     android:text="@string/instructors"
                     android:textStyle="bold"
-                    android:textColor="@color/purple"
+                    android:textColor="@color/red"
                     android:textSize="20sp" />
             </RelativeLayout>
 
@@ -86,7 +85,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/karam"
-                        android:textColor="@color/purple"
+                        android:textColor="@color/night"
+                        android:textAlignment="center"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -102,13 +102,14 @@
                         android:id="@+id/Aziza_in"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textAlignment="center"
                         android:src="@drawable/icons8_linkedin"
                         tools:ignore="ContentDescription"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/aziza"
-                        android:textColor="@color/purple"
+                        android:textColor="@color/night"
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
@@ -120,8 +121,8 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/work_team"
                 android:textStyle="bold"
-                android:layout_marginBottom="24dp"
-                android:textColor="@color/purple"
+                android:layout_marginBottom="12dp"
+                android:textColor="@color/red"
                 android:textSize="20sp" />
 
             <LinearLayout
@@ -130,7 +131,7 @@
                 android:baselineAligned="false"
                 android:orientation="horizontal"
                 android:weightSum="4"
-                android:layout_marginTop="16dp">
+                android:layout_marginBottom="16dp">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -150,7 +151,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/ahmed"
-                        android:textColor="@color/purple"
+                        android:textAlignment="center"
+                        android:textColor="@color/night"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -170,8 +172,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textAlignment="center"
                         android:text="@string/awadeen"
-                        android:textColor="@color/purple"
+                        android:textColor="@color/night"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -192,7 +195,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/merna"
-                        android:textColor="@color/purple"
+                        android:textAlignment="center"
+                        android:textColor="@color/night"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -213,7 +217,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/hager"
-                        android:textColor="@color/purple"
+                        android:textAlignment="center"
+                        android:textColor="@color/night"
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>

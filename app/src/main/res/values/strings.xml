@@ -37,13 +37,13 @@
     <string name="your_profile">Your Profile</string>
     <string name="your_personal_information">Your Personal Information</string>
     <string name="find_us_in_linkedin">Find us in LinkedIn</string>
-    <string name="work_team">Work Team</string>
-    <string name="hager">Hager</string>
-    <string name="merna">Merna</string>
-    <string name="awadeen">Awadeen</string>
-    <string name="ahmed">Ahmed</string>
-    <string name="karam">Karam</string>
-    <string name="aziza">Aziza</string>
+    <string name="work_team">Team</string>
+    <string name="hager">Hager\nMatter</string>
+    <string name="merna">Merna\nHesham</string>
+    <string name="awadeen">Mohammed\nAwadeen</string>
+    <string name="ahmed">Ahmed\nElzamany</string>
+    <string name="karam">Karam\nIbrahim</string>
+    <string name="aziza">Aziza\nHelmy</string>
     <string name="instructors">Instructors</string>
     <string name="Recent_Searches">Recent Searches</string>
 

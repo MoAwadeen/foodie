@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/night"
     tools:context=".ui.auth.LoginFragment">
 
     <ScrollView
@@ -50,7 +50,7 @@
                 android:layout_marginTop="18dp"
                 android:fontFamily="@font/lexend_medium"
                 android:gravity="center"
-                android:textColor="@color/night"
+                android:textColor="@color/wheat"
                 android:text="@string/enter_account"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +72,7 @@
                 app:boxCornerRadiusTopStart="18dp"
                 app:boxStrokeColor="@color/red"
                 app:hintEnabled="true"
-                app:hintTextColor="@color/night"
+                app:hintTextColor="@color/wheat"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/enterAccount"
@@ -106,7 +106,7 @@
                 app:boxCornerRadiusTopStart="18dp"
                 app:boxStrokeColor="@color/red"
                 app:hintEnabled="true"
-                app:hintTextColor="@color/night"
+                app:hintTextColor="@color/wheat"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/emailLogin"
@@ -158,7 +158,7 @@
                     android:fontFamily="@font/lexend"
                     android:layout_height="wrap_content"
                     android:text="@string/don_t_have_an_account"
-                    android:textColor="@color/night"
+                    android:textColor="@color/background"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 

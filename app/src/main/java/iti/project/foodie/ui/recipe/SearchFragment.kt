@@ -153,9 +153,9 @@ class SearchFragment : Fragment() {
         searchHistoryList.forEach { history ->
             val chip = Chip(requireContext()).apply {
                 text = history.query
-                setChipBackgroundColorResource(R.color.purple) // Background color
-                setTextColor(resources.getColorStateList(R.color.orange)) // Text color
-                setRippleColorResource(R.color.light_orange) // Ripple effect color
+                setChipBackgroundColorResource(R.color.wheat) // Background color
+                setTextColor(resources.getColorStateList(R.color.night)) // Text color
+                setRippleColorResource(R.color.red) // Ripple effect color
                 isCloseIconVisible = false // Hide close icon
                 setOnClickListener {
                     performSearch(history.query)

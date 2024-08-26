@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/wheat"
+    android:background="@color/night"
     tools:context=".ui.recipe.RecipeActivity" >
 
     <androidx.fragment.app.FragmentContainerView
@@ -32,7 +32,7 @@
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bottom_nav_background"
+        android:background="@drawable/bottom_nav_background_night"
         app:itemIconTint="@color/bottom_nav_item_color"
         app:itemTextColor="@color/bottom_nav_item_color"
         app:itemActiveIndicatorStyle="@style/BottomNavigationActiveIndicator"

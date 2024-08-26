@@ -5,9 +5,8 @@
     android:id="@+id/search_fragment_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/night"
     android:elevation="10dp"
-    android:foregroundTint="@color/orange"
     android:orientation="vertical">
 
     <TextView

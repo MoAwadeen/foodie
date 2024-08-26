@@ -99,7 +99,7 @@ class RecipeActivity : AppCompatActivity() {
             val menuItem = popupMenu.menu.getItem(i)
             val spannableTitle = SpannableString(menuItem.title)
             spannableTitle.setSpan(
-                ForegroundColorSpan(ContextCompat.getColor(this, R.color.purple)),
+                ForegroundColorSpan(ContextCompat.getColor(this, R.color.red)),
                 0,
                 spannableTitle.length,
                 0

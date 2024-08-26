@@ -2,48 +2,58 @@ package iti.project.foodie.ui.recipe
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import iti.project.foodie.data.repository.AuthRepository
+import iti.project.foodie.data.source.local.RoomDb
 import iti.project.foodie.databinding.FragmentProfileBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var authRepository: AuthRepository
+    private var name: String? = "User Name"
+    private var birthDate: String? = "1/1/2025"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-
-        // Initialize SharedPreferences
-        sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", android.content.Context.MODE_PRIVATE)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Display user information when the view is created
-        displayUserInfo()
+        // Initialize SharedPreferences
+        sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", android.content.Context.MODE_PRIVATE)
+        val email = sharedPreferences.getString("email", "email@gmail.com")
 
-    }
+        val userDb = RoomDb.getDataBase(requireContext())
+        val userDao = userDb.UserDao()
+        authRepository = AuthRepository(userDao)
 
-    // Method to retrieve and display user information
-    private fun displayUserInfo() {
-        // Retrieve user information from SharedPreferences
-        val name = sharedPreferences.getString("name", "")
-        val email = sharedPreferences.getString("email", "")
-        val birthDate = sharedPreferences.getString("birthDate", "")
+        CoroutineScope(Dispatchers.IO).launch {
+            // Fetch data from the repository
+            name = email?.let { authRepository.getCurrentUserName(it) }
+            birthDate = email?.let { authRepository.getCurrentUserBirthDate(it) }
 
-        // Display user information in the ProfileFragment's UI
-        binding.profileNameInputEditText.setText(name)
-        binding.profileEmailInputEditText.setText(email)
-        binding.profileDateInputEditText.setText(birthDate)
+            // Update the UI on the main thread
+            withContext(Dispatchers.Main) {
+                binding.userName.text = name
+                binding.userBirthDte.text = birthDate
+                binding.userEmail.text = email
+            }
+        }
     }
 
     override fun onDestroyView() {

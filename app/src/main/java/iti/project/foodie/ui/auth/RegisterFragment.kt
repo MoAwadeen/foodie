@@ -3,6 +3,7 @@ package iti.project.foodie.ui.auth
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -95,11 +96,12 @@ class RegisterFragment : Fragment() {
                 val user = User(name = name, birthDate = birthDate, email = email, password = password)
                 userViewModel.insertUser(user) {
                     with(sharedPreferences.edit()) {
+                        putString("name", name)
+                        putString("birthDate", birthDate)
                         putString("email", email)
                         putBoolean("isLoggedIn", true)
                         apply()
                     }
-
 
                     Toast.makeText(context, R.string.register_successfully, Toast.LENGTH_SHORT).show()
                     findNavController().navigate(

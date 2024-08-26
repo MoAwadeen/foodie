@@ -2,8 +2,8 @@
 <resources>
 
     <style name="Theme.foodie" parent="Theme.SplashScreen">
-        <item name="android:windowSplashScreenBackground">@color/background</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/logo</item>
+        <item name="android:windowSplashScreenBackground">@color/wheat</item>
+        <item name="windowSplashScreenAnimatedIcon">@raw/foodie_animation</item>
         <item name="postSplashScreenTheme">@style/Base.Theme.Foodie</item>
     </style>
 </resources>

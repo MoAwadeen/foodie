@@ -19,4 +19,10 @@ interface UserDao {
     @Query("SELECT id FROM users WHERE email = :email LIMIT 1")
     suspend fun getCurrentUserId(email: String): Int?
 
+    @Query("SELECT name FROM users WHERE email = :email LIMIT 1")
+    suspend fun getCurrentUserName(email: String): String?
+
+    @Query("SELECT birthDate FROM users WHERE email = :email LIMIT 1")
+    suspend fun getCurrentUserBirthDate(email: String): String?
+
 }

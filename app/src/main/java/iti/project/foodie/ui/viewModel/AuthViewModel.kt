@@ -38,4 +38,16 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
             authRepository.getCurrentUserId(email)
         }
     }
+
+    fun getCurrentUserName(email: String){
+        viewModelScope.launch {
+            authRepository.getCurrentUserName(email)
+        }
+    }
+
+    fun getCurrentUserBirthDate(email: String){
+        viewModelScope.launch {
+            authRepository.getCurrentUserBirthDate(email)
+        }
+    }
 }

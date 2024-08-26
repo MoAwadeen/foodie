@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:lottie_rawRes="@raw/loading_animation"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintWidth_percent="0.4"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/recipeImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder"
+            app:layout_constraintBottom_toTopOf="@id/recipeTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/exitBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_exit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription,MissingConstraints" />
+
+        <ImageView
+            android:id="@+id/favouriteBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_third_favourite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription,MissingConstraints" />
+
+        <TextView
+            android:id="@+id/recipeTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textColor="@color/purple"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@id/instructionsTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recipeImage"
+            tools:text="Spaghetti" />
+
+        <TextView
+            android:id="@+id/instructionsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/instructions"
+            android:textColor="@color/orange"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/recipeInstructions"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recipeTitle" />
+
+        <TextView
+            android:id="@+id/recipeInstructions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:maxLines="4"
+            android:textColor="@color/purple"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/instructionsTitle"
+            tools:text="Put the onion and oil in a large pan and fry over a fairly high heat for 3-4 minutes" />
+
+        <TextView
+            android:id="@+id/ingredientsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:text="@string/ingredients"
+            android:textColor="@color/orange"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/ingredientsList"
+            app:layout_constraintEnd_toStartOf="@id/measuresTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recipeInstructions" />
+
+        <TextView
+            android:id="@+id/measuresTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/measures"
+            android:textColor="@color/orange"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/measuresList"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ingredientsTitle"
+            app:layout_constraintTop_toBottomOf="@+id/recipeInstructions" />
+
+        <TextView
+            android:id="@+id/ingredientsList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/purple"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@id/categoryIcon"
+            app:layout_constraintEnd_toStartOf="@id/measuresList"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ingredientsTitle"
+            tools:text="onions, olive oil, garlic" />
+
+        <TextView
+            android:id="@+id/measuresList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/purple"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@id/countryIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ingredientsList"
+            app:layout_constraintTop_toBottomOf="@id/measuresTitle"
+            tools:text="onions, olive oil, garlic" />
+
+        <ImageView
+            android:id="@+id/categoryIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_sec_category"
+            app:layout_constraintBottom_toBottomOf="@id/categoryText"
+            app:layout_constraintEnd_toStartOf="@+id/categoryText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ingredientsList"
+            app:layout_constraintTop_toTopOf="@id/categoryText"
+            tools:ignore="ContentDescription"
+            android:layout_marginStart="26dp"/>
+
+        <TextView
+            android:id="@+id/categoryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:textColor="@color/orange"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/countryIcon"
+            app:layout_constraintEnd_toStartOf="@id/countryIcon"
+            app:layout_constraintStart_toEndOf="@id/categoryIcon"
+            app:layout_constraintTop_toBottomOf="@id/ingredientsList"
+            tools:text="Pasta , Meat" />
+
+        <ImageView
+            android:id="@+id/countryIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_world"
+            app:layout_constraintBottom_toBottomOf="@id/countryText"
+            app:layout_constraintEnd_toStartOf="@id/countryText"
+            app:layout_constraintStart_toEndOf="@id/categoryText"
+            app:layout_constraintTop_toBottomOf="@id/ingredientsList"
+            app:layout_constraintTop_toTopOf="@id/countryText"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/countryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="120dp"
+            android:textColor="@color/orange"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/countryIcon"
+            app:layout_constraintTop_toBottomOf="@id/measuresList"
+            tools:text="Italian" />
+
+        <TextView
+            android:id="@+id/videoTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="@string/watch_the_full_recipe_here"
+            android:textColor="@color/purple"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/recipeVideo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/categoryIcon" />
+
+        <WebView
+            android:id="@+id/recipeVideo"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="10dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/videoTitle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

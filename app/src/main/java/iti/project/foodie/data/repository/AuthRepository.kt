@@ -22,4 +22,12 @@ class AuthRepository(private val userDao: UserDao) {
         return userDao.getCurrentUserId(email)
     }
 
+    suspend fun getCurrentUserName(email: String): String? {
+        return userDao.getCurrentUserName(email)
+    }
+
+    suspend fun getCurrentUserBirthDate(email: String): String? {
+        return userDao.getCurrentUserBirthDate(email)
+    }
+
 }

@@ -61,8 +61,11 @@
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="removed_from_favourites">Removed From Favourites</string>
-
-
-
+    <string name="log_in">Log In</string>
+    <string name="user_name">User Name</string>
+    <string name="country">Country</string>
+    <string name="recipe_title">Recipe Title</string>
+    <string name="recipe_ingredients">Recipe Ingredients</string>
+    <string name="category">Category</string>
 
 </resources>

@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +18,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import iti.project.foodie.R
 import iti.project.foodie.data.repository.AuthRepository
@@ -28,6 +31,7 @@ import iti.project.foodie.data.source.remote.network.RetrofitModule
 import iti.project.foodie.databinding.FragmentRecipeDetailBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -97,6 +101,9 @@ class RecipeDetailFragment : Fragment() {
     @SuppressLint("SetTextI18n", "SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Show the Lottie animation
+        binding.animationView.visibility = View.VISIBLE
 
         CoroutineScope(Dispatchers.IO).launch {
             isFavorite = repository.isMealFavorite(mealId , currentUserId!!)
@@ -186,12 +193,19 @@ class RecipeDetailFragment : Fragment() {
                     meal?.let {
                         currentMeal = it
                         updateUI(it)
+                        CoroutineScope(Dispatchers.IO).launch {
+                            delay(2000)
+                        }
+                        // Hide the Lottie animation when data is loaded
+                        binding.animationView.visibility = View.GONE
                     }
                 }
             }
 
             override fun onFailure(call: Call<MealList>, t: Throwable) {
                 // Handle the error
+                // Hide the Lottie animation when data is loaded
+                binding.animationView.visibility = View.VISIBLE
             }
         })
     }
